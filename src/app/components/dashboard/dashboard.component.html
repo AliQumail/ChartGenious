@@ -1,1 +1,18 @@
-<p>dashboard works!</p>
+<div nz-row>
+  <div nz-col nzSpan="6">
+    <div><button nz-button nzType="primary" (click)="handleSection(0)">View data</button></div>
+    <div><button nz-button nzType="primary" (click)="handleSection(1)">Line graph</button></div>
+    <div><button nz-button nzType="primary" (click)="handleSection(2)">Primary Button</button></div>
+  </div>
+  <div nz-col nzSpan="18">
+    <div *ngIf="section == 1">View data</div>
+    <div *ngIf="section == 2">
+        <select (change)="onChangeLineGraphSelectedColumns($event, 0)">
+            <option *ngFor="let col of columns; let i = index" [value]="i">{{ col }}</option>
+        </select>
+        <select>
+            <option *ngFor="let col of columns; let i = index" [value]="i">{{ col }}</option>
+        </select>
+    </div>
+  </div>
+</div>

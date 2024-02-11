@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import * as XLSX from 'xlsx';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +8,7 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+  constructor(private router: Router) { }
   onFileChange(event: any) {
     const file = event.target.files[0];
     if (file) {
@@ -17,28 +19,10 @@ export class HomeComponent {
         const sheetName = workbook.SheetNames[0]; // Assuming first sheet
         const worksheet = workbook.Sheets[sheetName];
         const excelData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-        console.log(excelData); // Here, you can process the extracted data as needed
-        this.transformData(excelData);
+        this.router.navigate(['/dashboard'], { state: { excelData } });
+      
       };
       reader.readAsArrayBuffer(file);
     }
   }
-
-  transformData(data: any){
-    const columnNames = data[0];
-
-// Extract data by column
-const columnData = [];
-for (let i = 0; i < columnNames.length; i++) {
-  const columnName = columnNames[i];
-  const columnValues = [];
-  for (let j = 1; j < data.length; j++) {
-    columnValues.push(data[j][i]);
-  }
-  columnData.push(columnValues);
-}
-
-console.log(columnData);
-  }
-
 }
