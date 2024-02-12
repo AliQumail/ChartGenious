@@ -10,6 +10,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzGridModule } from 'ng-zorro-antd/grid';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
     NgChartsModule,
     NzTableModule,
     NzButtonModule,
-    NzGridModule
+    NzGridModule,
+    FormsModule
   ],
 
   providers: [],

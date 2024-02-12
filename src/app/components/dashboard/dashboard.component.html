@@ -7,12 +7,20 @@
   <div nz-col nzSpan="18">
     <div *ngIf="section == 1">View data</div>
     <div *ngIf="section == 2">
-        <select (change)="onChangeLineGraphSelectedColumns($event, 0)">
+        <select (change)="onChangeLineGraphSelectedColumns($event, 0)" [(ngModel)]="lineGraphSelectedColumn1">
+            <option [value]="-1"> Select X-Axis </option>
             <option *ngFor="let col of columns; let i = index" [value]="i">{{ col }}</option>
         </select>
-        <select>
+        <select (change)="onChangeLineGraphSelectedColumns($event, 1)" [(ngModel)]="lineGraphSelectedColumn2">
+            <option [value]="-1"> Select Y-Axis </option>
             <option *ngFor="let col of columns; let i = index" [value]="i">{{ col }}</option>
         </select>
+        <canvas baseChart width="400" height="400"
+        [type]="'line'"
+        [data]="lineChartData"
+        [options]="lineChartOptions"
+        [legend]="lineChartLegend">
+      </canvas>
     </div>
   </div>
 </div>
