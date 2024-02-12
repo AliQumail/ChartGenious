@@ -1,26 +1,33 @@
 <div nz-row>
   <div nz-col nzSpan="6">
-    <div><button nz-button nzType="primary" (click)="handleSection(0)">View data</button></div>
+    <!-- <div><button nz-button nzType="primary" (click)="handleSection(0)">View data</button></div>
     <div><button nz-button nzType="primary" (click)="handleSection(1)">Line graph</button></div>
-    <div><button nz-button nzType="primary" (click)="handleSection(2)">Primary Button</button></div>
+    <div><button nz-button nzType="primary" (click)="handleSection(2)">Primary Button</button></div> -->
+     <ul nz-menu nzMode="inline">
+      <li nz-submenu nzTitle="Data" nzIcon="mail" nzOpen>
+        <ul>
+          <li nz-menu-item (click)="handleSection(1)">View raw data</li>
+        </ul> 
+      </li>
+      <li nz-submenu nzTitle="Graphs" nzIcon="appstore">
+        <ul>
+          <li nz-menu-item (click)="handleSection(2)">Line graph</li>
+          <!-- <li nz-menu-item>Pie chart</li>
+          <li nz-menu-item (click)="handleSection(2)">Bar chart</li> -->
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="Download" nzIcon="setting">
+        <ul>
+          <li nz-menu-item>To PDF</li>
+          
+        </ul>
+      </li>
+    </ul>
   </div>
-  <div nz-col nzSpan="18">
+  <div nz-col nzSpan="18" style="padding: 0rem 3rem;">
     <div *ngIf="section == 1">View data</div>
     <div *ngIf="section == 2">
-        <select (change)="onChangeLineGraphSelectedColumns($event, 0)" [(ngModel)]="lineGraphSelectedColumn1">
-            <option [value]="-1"> Select X-Axis </option>
-            <option *ngFor="let col of columns; let i = index" [value]="i">{{ col }}</option>
-        </select>
-        <select (change)="onChangeLineGraphSelectedColumns($event, 1)" [(ngModel)]="lineGraphSelectedColumn2">
-            <option [value]="-1"> Select Y-Axis </option>
-            <option *ngFor="let col of columns; let i = index" [value]="i">{{ col }}</option>
-        </select>
-        <canvas baseChart width="400" height="400"
-        [type]="'line'"
-        [data]="lineChartData"
-        [options]="lineChartOptions"
-        [legend]="lineChartLegend">
-      </canvas>
+        <app-line-chart [data]="data" [columns]="columns"></app-line-chart>
     </div>
   </div>
 </div>

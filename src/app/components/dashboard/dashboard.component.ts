@@ -11,6 +11,7 @@ export class DashboardComponent implements OnInit {
   columns: string[] = [];
   data: any[] = [];
   section : number = 1;
+  
 
   // Line graph
   lineGraphSelectedColumn1: number = -1; 

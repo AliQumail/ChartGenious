@@ -11,12 +11,18 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { FormsModule } from '@angular/forms';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { LineChartComponent } from './components/graphs/charts/line-chart/line-chart.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    DashboardComponent
+    DashboardComponent,
+    LineChartComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +31,11 @@ import { FormsModule } from '@angular/forms';
     NzTableModule,
     NzButtonModule,
     NzGridModule,
-    FormsModule
+    NzMenuModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    HttpClientModule
+  
   ],
 
   providers: [],
