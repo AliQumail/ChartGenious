@@ -14,7 +14,8 @@ import { FormsModule } from '@angular/forms';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { LineChartComponent } from './components/graphs/charts/line-chart/line-chart.component';
+import { LineChartComponent } from './components/charts/line-chart/line-chart.component';
+import { PieChartComponent } from './components/charts/pie-chart/pie-chart.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { LineChartComponent } from './components/graphs/charts/line-chart/line-c
     AppComponent,
     HomeComponent,
     DashboardComponent,
-    LineChartComponent
+    LineChartComponent,
+    PieChartComponent
   ],
   imports: [
     BrowserModule,

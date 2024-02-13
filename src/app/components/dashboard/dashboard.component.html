@@ -12,8 +12,7 @@
       <li nz-submenu nzTitle="Graphs" nzIcon="appstore">
         <ul>
           <li nz-menu-item (click)="handleSection(2)">Line graph</li>
-          <!-- <li nz-menu-item>Pie chart</li>
-          <li nz-menu-item (click)="handleSection(2)">Bar chart</li> -->
+          <li nz-menu-item (click)="handleSection(3)">Pie chart</li>
         </ul>
       </li>
       <li nz-submenu nzTitle="Download" nzIcon="setting">
@@ -28,6 +27,11 @@
     <div *ngIf="section == 1">View data</div>
     <div *ngIf="section == 2">
         <app-line-chart [data]="data" [columns]="columns"></app-line-chart>
+        <app-line-chart [data]="data" [columns]="columns"></app-line-chart>
+        <app-line-chart [data]="data" [columns]="columns"></app-line-chart>
     </div>
+    <div *ngIf="section == 3">
+      <app-pie-chart [data]="data" [columns]="columns"></app-pie-chart>
+  </div>
   </div>
 </div>
