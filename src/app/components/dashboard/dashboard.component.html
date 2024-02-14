@@ -1,8 +1,5 @@
 <div nz-row>
-  <div nz-col nzSpan="6">
-    <!-- <div><button nz-button nzType="primary" (click)="handleSection(0)">View data</button></div>
-    <div><button nz-button nzType="primary" (click)="handleSection(1)">Line graph</button></div>
-    <div><button nz-button nzType="primary" (click)="handleSection(2)">Primary Button</button></div> -->
+  <div nz-col nzSpan="4">
      <ul nz-menu nzMode="inline">
       <li nz-submenu nzTitle="Data" nzIcon="mail" nzOpen>
         <ul>
@@ -23,12 +20,12 @@
       </li>
     </ul>
   </div>
-  <div nz-col nzSpan="18" style="padding: 0rem 3rem;">
+  <div nz-col nzSpan="20" style="padding: 0rem 3rem;">
     <div *ngIf="section == 1">View data</div>
     <div *ngIf="section == 2">
+     
         <app-line-chart [data]="data" [columns]="columns"></app-line-chart>
-        <app-line-chart [data]="data" [columns]="columns"></app-line-chart>
-        <app-line-chart [data]="data" [columns]="columns"></app-line-chart>
+      
     </div>
     <div *ngIf="section == 3">
       <app-pie-chart [data]="data" [columns]="columns"></app-pie-chart>

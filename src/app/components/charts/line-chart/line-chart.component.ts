@@ -8,6 +8,8 @@ import { ChartConfiguration, ChartOptions, ChartType } from "chart.js";
 export class LineChartComponent {
   @Input() columns: string[] = [];
   @Input() data: any[] = [];
+
+  noOfCharts : number[] = [1];
    // Line graph
    lineGraphSelectedColumn1: number = -1; 
    lineGraphSelectedColumn2: number = -1; 
@@ -39,6 +41,12 @@ export class LineChartComponent {
    public lineChartLegend = true;
 
    // Line graph functions
+
+  addLineChart(){
+    this.noOfCharts.push(1)
+    console.log(this.noOfCharts);
+  }
+
   onChangeLineGraphSelectedColumns(event: any, columnNo: number){
     console.log("clicked")
     let value = event.target.value; 
