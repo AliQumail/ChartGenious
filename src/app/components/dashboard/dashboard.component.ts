@@ -43,6 +43,7 @@ export class DashboardComponent implements OnInit {
   };
   public lineChartLegend = true;
 
+  displayCharts : string[] = [];
   
   constructor(private route: ActivatedRoute) {}
   ngOnInit() {
@@ -66,8 +67,8 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  handleSection(sectionNo: number){
-    this.section = sectionNo;
+  onClickChart(typeOfGraph: string){
+    this.displayCharts.push(typeOfGraph);
   }
 
   // Line graph functions
