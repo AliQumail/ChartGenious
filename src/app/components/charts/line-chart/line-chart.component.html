@@ -1,6 +1,4 @@
-<button (click)="addLineChart()">New Chart</button>
-<div nz-row>
-    <div *ngFor="let i of noOfCharts" nz-col nzSpan="12">
+
       <div>
         <select (change)="onChangeLineGraphSelectedColumns($event, 0)" [(ngModel)]="lineGraphSelectedColumn1">
           <option [value]="-1"> Select X-Axis </option>
@@ -10,13 +8,12 @@
           <option [value]="-1"> Select Y-Axis </option>
           <option *ngFor="let col of columns; let i = index" [value]="i">{{ col }}</option>
         </select>
-        <canvas baseChart width="400" height="400"
+        <canvas baseChart width="325" height="325"
                 [type]="'line'"
                 [data]="lineChartData"
                 [options]="lineChartOptions"
                 [legend]="lineChartLegend">
         </canvas>
       </div>
-    </div>
-  </div>
+   
   

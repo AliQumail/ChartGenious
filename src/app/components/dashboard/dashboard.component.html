@@ -22,9 +22,9 @@
       </li>
     </ul>
   </div>
-  <div nz-col nzSpan="20" style="padding: 0rem 3rem;">
+  <div nz-col nzSpan="20" style="padding: 0rem 3rem;" nzJustify="space-around">
     <div nz-row>
-      <div *ngFor="let chart of displayCharts" nz-col nzSpan="8">
+      <div *ngFor="let chart of displayCharts" nz-col nzSpan="8" style="margin-top: 2.5rem;">
         <div *ngIf="chart == 'line'">
           <app-line-chart></app-line-chart>
         </div>
