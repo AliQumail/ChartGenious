@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ChartConfiguration, ChartOptions, ChartType } from "chart.js";
+import { GlobalConstants } from "../../../global-constants"
 @Component({
   selector: 'app-line-chart',
   templateUrl: './line-chart.component.html',
@@ -8,6 +9,9 @@ import { ChartConfiguration, ChartOptions, ChartType } from "chart.js";
 export class LineChartComponent {
   @Input() columns: string[] = [];
   @Input() data: any[] = [];
+
+  chartHeight = GlobalConstants.CHART_HEIGHT;
+  chartWidth = GlobalConstants.CHART_WIDTH;
 
   noOfCharts : number[] = [1];
    // Line graph

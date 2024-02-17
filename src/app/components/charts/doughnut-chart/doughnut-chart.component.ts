@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ChartConfiguration } from 'chart.js';
+import { GlobalConstants } from "../../../global-constants"
 
 @Component({
   selector: 'app-doughnut-chart',
@@ -8,6 +9,9 @@ import { ChartConfiguration } from 'chart.js';
 })
 export class DoughnutChartComponent {
   title = 'ng2-charts-demo';
+  
+  chartHeight = GlobalConstants.CHART_HEIGHT;
+  chartWidth = GlobalConstants.CHART_WIDTH;
   
   public doughnutChartLabels: string[] = [ 'Download Sales', 'In-Store Sales', 'Mail-Order Sales' ];
   public doughnutChartDatasets: ChartConfiguration<'doughnut'>['data']['datasets'] = [

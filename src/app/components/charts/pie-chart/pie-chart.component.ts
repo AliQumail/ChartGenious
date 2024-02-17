@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ChartOptions } from 'chart.js';
+import { GlobalConstants } from "../../../global-constants"
 
 @Component({
   selector: 'app-pie-chart',
@@ -10,6 +11,10 @@ export class PieChartComponent {
   @Input() columns: string[] = [];
   @Input() data: any[] = [];
   title = 'ng2-charts-demo';
+
+  chartHeight = GlobalConstants.CHART_HEIGHT;
+  chartWidth = GlobalConstants.CHART_WIDTH;
+
   
   // Pie
   public pieChartOptions: ChartOptions<'pie'> = {

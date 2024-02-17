@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ChartConfiguration } from 'chart.js';
+import { GlobalConstants } from "../../../global-constants"
 
 @Component({
   selector: 'app-bar-chart',
@@ -8,6 +9,10 @@ import { ChartConfiguration } from 'chart.js';
 })
 export class BarChartComponent {
   title = 'ng2-charts-demo';
+
+  
+ chartHeight = GlobalConstants.CHART_HEIGHT;
+ chartWidth = GlobalConstants.CHART_WIDTH;
 
   public barChartLegend = true;
   public barChartPlugins = [];
