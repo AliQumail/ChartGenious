@@ -8,12 +8,42 @@
       </li>
       <li nz-submenu nzTitle="Graphs" nzIcon="appstore">
         <ul>
-          <li nz-menu-item (click)="onClickChart('line')">Line chart</li>
-          <li nz-menu-item (click)="onClickChart('pie')">Pie chart</li>
-          <li nz-menu-item (click)="onClickChart('bar')">Bar chart</li>
-          <li nz-menu-item (click)="onClickChart('doughnut')">Doughnut chart</li>
-          <li nz-menu-item (click)="onClickChart('polar')">Polar area chart</li>
-          <li nz-menu-item (click)="onClickChart('scatter')">Scatter chart</li>
+          <li nz-menu-item (click)="onClickChart('line')" class="menu-item"> 
+            Line chart  
+            <nz-badge [nzCount]="this.selectChartCount.line">
+              <a></a>
+            </nz-badge>
+          </li>
+          <li nz-menu-item (click)="onClickChart('pie')" class="menu-item">
+            Pie chart
+            <nz-badge [nzCount]="this.selectChartCount.pie">
+              <a></a>
+            </nz-badge>
+          </li>
+          <li nz-menu-item (click)="onClickChart('bar')" class="menu-item">
+            Bar chart
+            <nz-badge [nzCount]="this.selectChartCount.bar">
+              <a></a>
+            </nz-badge>
+          </li>
+          <li nz-menu-item (click)="onClickChart('doughnut')" class="menu-item">
+             Doughnut chart
+            <nz-badge [nzCount]="this.selectChartCount.doughnut">
+              <a></a>
+            </nz-badge>
+          </li>
+          <li nz-menu-item (click)="onClickChart('polar')" class="menu-item">
+            Polar area chart
+            <nz-badge [nzCount]="this.selectChartCount.polar">
+              <a></a>
+            </nz-badge>
+          </li>
+          <li nz-menu-item (click)="onClickChart('scatter')" class="menu-item">
+            Scatter chart
+            <nz-badge [nzCount]="this.selectChartCount.scatter">
+              <a></a>
+            </nz-badge>
+          </li>
         </ul>
       </li>
       <li nz-submenu nzTitle="Download" nzIcon="setting">

@@ -11,7 +11,17 @@ export class DashboardComponent implements OnInit {
   columns: string[] = [];
   data: any[] = [];
   section : number = 1;
+
   
+
+  selectChartCount = {
+    line: 0,
+    pie: 0,
+    scatter: 0,
+    bar: 0,
+    doughnut: 0,
+    polar: 0
+  }
 
   // Line graph
   lineGraphSelectedColumn1: number = -1; 
@@ -69,6 +79,13 @@ export class DashboardComponent implements OnInit {
 
   onClickChart(typeOfGraph: string){
     this.displayCharts.push(typeOfGraph);
+
+    if (typeOfGraph == 'line') this.selectChartCount.line +=1;
+    if (typeOfGraph == 'pie') this.selectChartCount.pie +=1;
+    if (typeOfGraph == 'polar') this.selectChartCount.polar +=1;
+    if (typeOfGraph == 'doughnut') this.selectChartCount.doughnut +=1;
+    if (typeOfGraph == 'bar') this.selectChartCount.bar +=1;
+    if (typeOfGraph == 'scatter') this.selectChartCount.scatter +=1;
   }
 
   // Line graph functions

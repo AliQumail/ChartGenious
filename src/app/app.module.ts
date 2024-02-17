@@ -20,7 +20,7 @@ import { BarChartComponent } from './components/charts/bar-chart/bar-chart.compo
 import { DoughnutChartComponent } from './components/charts/doughnut-chart/doughnut-chart.component';
 import { ScatterChartComponent } from './components/charts/scatter-chart/scatter-chart.component';
 import { PolarAreaChartComponent } from './components/charts/polar-area-chart/polar-area-chart.component';
-
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
 
 @NgModule({
   declarations: [
@@ -42,6 +42,7 @@ import { PolarAreaChartComponent } from './components/charts/polar-area-chart/po
     NzButtonModule,
     NzGridModule,
     NzMenuModule,
+    NzBadgeModule,
     FormsModule,
     BrowserAnimationsModule,
     HttpClientModule
