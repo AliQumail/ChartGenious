@@ -18,6 +18,8 @@ import { LineChartComponent } from './components/charts/line-chart/line-chart.co
 import { PieChartComponent } from './components/charts/pie-chart/pie-chart.component';
 import { BarChartComponent } from './components/charts/bar-chart/bar-chart.component';
 import { DoughnutChartComponent } from './components/charts/doughnut-chart/doughnut-chart.component';
+import { ScatterChartComponent } from './components/charts/scatter-chart/scatter-chart.component';
+import { PolarAreaChartComponent } from './components/charts/polar-area-chart/polar-area-chart.component';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import { DoughnutChartComponent } from './components/charts/doughnut-chart/dough
     LineChartComponent,
     PieChartComponent,
     BarChartComponent,
-    DoughnutChartComponent
+    DoughnutChartComponent,
+    ScatterChartComponent,
+    PolarAreaChartComponent
   ],
   imports: [
     BrowserModule,

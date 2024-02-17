@@ -12,6 +12,8 @@
           <li nz-menu-item (click)="onClickChart('pie')">Pie chart</li>
           <li nz-menu-item (click)="onClickChart('bar')">Bar chart</li>
           <li nz-menu-item (click)="onClickChart('doughnut')">Doughnut chart</li>
+          <li nz-menu-item (click)="onClickChart('polar')">Polar area chart</li>
+          <li nz-menu-item (click)="onClickChart('scatter')">Scatter chart</li>
         </ul>
       </li>
       <li nz-submenu nzTitle="Download" nzIcon="setting">
@@ -36,6 +38,12 @@
         </div>
         <div *ngIf="chart == 'doughnut'">
           <app-doughnut-chart></app-doughnut-chart>
+        </div>
+        <div *ngIf="chart == 'polar'">
+          <app-polar-area-chart></app-polar-area-chart>
+        </div>
+        <div *ngIf="chart == 'scatter'">
+          <app-scatter-chart></app-scatter-chart>
         </div>
       </div>
     </div>   
