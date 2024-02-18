@@ -9,9 +9,11 @@ import { GlobalConstants } from "../../../global-constants"
 export class LineChartComponent {
   @Input() columns: string[] = [];
   @Input() data: any[] = [];
+  @Input() chartSize: string = "325";
 
   chartHeight = GlobalConstants.CHART_HEIGHT;
   chartWidth = GlobalConstants.CHART_WIDTH;
+  
 
   noOfCharts : number[] = [1];
    // Line graph

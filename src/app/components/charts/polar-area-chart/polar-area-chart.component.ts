@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ChartConfiguration } from 'chart.js';
 import { GlobalConstants } from 'src/app/global-constants';
 @Component({
@@ -9,6 +9,7 @@ import { GlobalConstants } from 'src/app/global-constants';
 export class PolarAreaChartComponent {
 
   title = 'ng2-charts-demo';
+  @Input() chartSize: string = "325";
   chartHeight = GlobalConstants.CHART_HEIGHT;
   chartWidth = GlobalConstants.CHART_WIDTH;
 

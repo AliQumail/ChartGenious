@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ChartConfiguration } from 'chart.js';
 import { GlobalConstants } from "../../../global-constants"
 
@@ -8,6 +8,7 @@ import { GlobalConstants } from "../../../global-constants"
   styleUrls: ['./doughnut-chart.component.css']
 })
 export class DoughnutChartComponent {
+  @Input() chartSize: string = "325";
   title = 'ng2-charts-demo';
   
   chartHeight = GlobalConstants.CHART_HEIGHT;

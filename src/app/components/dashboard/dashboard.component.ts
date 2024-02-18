@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ChartConfiguration, ChartOptions, ChartType } from "chart.js";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent implements OnInit {
   columns: string[] = [];
   data: any[] = [];
   section : number = 1;
+  chartSize = "325"; 
 
   
 
@@ -88,6 +90,19 @@ export class DashboardComponent implements OnInit {
     if (typeOfGraph == 'scatter') this.selectChartCount.scatter +=1;
   }
 
+  viewType : string = "8";
+  onClickChangeView(view: number){
+    if (view == 1) {
+      this.viewType = "8"
+      this.chartSize = "325"
+    } else  if (view == 2){
+      this.viewType = "12"
+      this.chartSize = "500"
+    } else {
+      this.viewType = "24"
+      this.chartSize = "700"
+    }
+  }
   // Line graph functions
   onChangeLineGraphSelectedColumns(event: any, columnNo: number){
     console.log("clicked")

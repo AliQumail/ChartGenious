@@ -10,6 +10,7 @@ import { GlobalConstants } from "../../../global-constants"
 export class PieChartComponent {
   @Input() columns: string[] = [];
   @Input() data: any[] = [];
+  @Input() chartSize: string = "325";
   title = 'ng2-charts-demo';
 
   chartHeight = GlobalConstants.CHART_HEIGHT;

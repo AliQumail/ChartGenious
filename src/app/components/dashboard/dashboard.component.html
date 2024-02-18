@@ -54,26 +54,29 @@
       </li>
     </ul>
   </div>
-  <div nz-col nzSpan="20" style="padding: 0rem 3rem;" nzJustify="space-around">
+  <div nz-col nzSpan="20" style="padding: 0rem 3rem;" >
+    <button (click)="onClickChangeView(1)">1</button>
+    <button (click)="onClickChangeView(2)">2</button>
+    <button (click)="onClickChangeView(3)">3</button>
     <div nz-row>
-      <div *ngFor="let chart of displayCharts" nz-col nzSpan="8" style="margin-top: 2.5rem;">
+      <div *ngFor="let chart of displayCharts" nz-col [nzSpan]="viewType" style="margin-top: 2.5rem;">
         <div *ngIf="chart == 'line'">
-          <app-line-chart></app-line-chart>
+          <app-line-chart [chartSize]="chartSize"></app-line-chart>
         </div>
         <div *ngIf="chart == 'pie'">
-          <app-pie-chart></app-pie-chart>
+          <app-pie-chart [chartSize]="chartSize"></app-pie-chart>
         </div>
         <div *ngIf="chart == 'bar'">
-          <app-bar-chart></app-bar-chart>
+          <app-bar-chart [chartSize]="chartSize"></app-bar-chart>
         </div>
         <div *ngIf="chart == 'doughnut'">
-          <app-doughnut-chart></app-doughnut-chart>
+          <app-doughnut-chart [chartSize]="chartSize"></app-doughnut-chart>
         </div>
         <div *ngIf="chart == 'polar'">
-          <app-polar-area-chart></app-polar-area-chart>
+          <app-polar-area-chart [chartSize]="chartSize"></app-polar-area-chart>
         </div>
         <div *ngIf="chart == 'scatter'">
-          <app-scatter-chart></app-scatter-chart>
+          <app-scatter-chart [chartSize]="chartSize"></app-scatter-chart>
         </div>
       </div>
     </div>   

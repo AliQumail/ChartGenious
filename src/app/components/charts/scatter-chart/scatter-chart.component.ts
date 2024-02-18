@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ChartConfiguration, ScatterDataPoint } from 'chart.js';
 import { GlobalConstants } from 'src/app/global-constants';
 @Component({
@@ -10,6 +10,7 @@ export class ScatterChartComponent {
   title = 'ng2-charts-demo';
   chartHeight = GlobalConstants.CHART_HEIGHT;
   chartWidth = GlobalConstants.CHART_WIDTH;
+  @Input() chartSize: string = "325";
 
 
   public scatterChartDatasets: ChartConfiguration<'scatter'>['data']['datasets'] = [

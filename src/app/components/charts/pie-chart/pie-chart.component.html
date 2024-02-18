@@ -7,7 +7,7 @@
         <option *ngFor="let col of columns; let i = index" [value]="i">{{ col }}</option>
     </select>
    
-    <canvas baseChart [width]="chartHeight" [height]="chartWidth"
+    <canvas baseChart [width]="chartSize" [height]="chartSize"
     [type]="'pie'"
     [datasets]="pieChartDatasets"
     [labels]="pieChartLabels"

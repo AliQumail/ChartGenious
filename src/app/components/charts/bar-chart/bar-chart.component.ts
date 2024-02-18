@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ChartConfiguration } from 'chart.js';
 import { GlobalConstants } from "../../../global-constants"
 
@@ -9,6 +9,7 @@ import { GlobalConstants } from "../../../global-constants"
 })
 export class BarChartComponent {
   title = 'ng2-charts-demo';
+  @Input() chartSize: string = "325";
 
   
  chartHeight = GlobalConstants.CHART_HEIGHT;
