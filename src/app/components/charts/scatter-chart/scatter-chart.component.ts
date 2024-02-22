@@ -11,6 +11,10 @@ export class ScatterChartComponent {
   chartHeight = GlobalConstants.CHART_HEIGHT;
   chartWidth = GlobalConstants.CHART_WIDTH;
   @Input() chartSize: string = "325";
+  @Input() data: any[] = [];
+  @Input() columns: string[] = [];
+  column1: number = -1;
+  column2: number = -1; 
 
 
   public scatterChartDatasets: ChartConfiguration<'scatter'>['data']['datasets'] = [
@@ -30,4 +34,27 @@ export class ScatterChartComponent {
   public scatterChartOptions: ChartConfiguration<'scatter'>['options'] = {
     responsive: false,
   };
+
+  // Column 1 denotes X axis & Column 2 y axis 
+  onChangeSelectColumn(event: any, columnNo: number){
+    let value = event.target.value; 
+    if (columnNo == 0) this.column1 = value;
+    if (columnNo == 1) this.column2 = value;
+    let data = [];
+    if (this.column1 != -1 && this.column2 != -1){
+   
+      let colLen = this.data[this.column1].length;
+      for ( let i = 0; i< colLen ; i++ ){ 
+        data.push({x: this.data[this.column1][i], y: this.data[this.column2][i]})
+      }
+    }
+    let obj1 = {
+      data: data,
+      label: 'Series A',
+      pointRadius: 10,
+    }
+    console.log(obj1);
+    this.scatterChartDatasets = [obj1];
+    
+  }
 }

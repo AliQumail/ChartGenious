@@ -105,7 +105,6 @@ export class DashboardComponent implements OnInit {
   }
   // Line graph functions
   onChangeLineGraphSelectedColumns(event: any, columnNo: number){
-    console.log("clicked")
     let value = event.target.value; 
     if (columnNo == 0) this.lineGraphSelectedColumn1 = value;
     if (columnNo == 1) this.lineGraphSelectedColumn2 = value;
@@ -128,9 +127,6 @@ export class DashboardComponent implements OnInit {
         labels: labels,
         datasets: datasets
       }
-
-      console.log(this.lineChartData);
-
     }
   }
 }
