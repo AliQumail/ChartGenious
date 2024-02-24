@@ -31,28 +31,22 @@ export class PieChartComponent {
   constructor() {
   }
 
-  onChangeLineGraphSelectedColumns(event: any)
+  column1: number = -1;
+  column2: number = -1;
+
+  onChangeLineGraphSelectedColumns(event: any, columnNo: number)
   {
-    let [labels, counts] = this.transformValuesForPieChart(this.data[event.target.value])
-    this.pieChartLabels = labels; 
-    this.pieChartDatasets = [ {
-      data: counts
-    } ];
-
-  }
-  
-  transformValuesForPieChart(arr: any[]): [any[], number[]] {
-    const uniqueValuesMap = new Map<any, number>();
-    for (const item of arr) {
-        uniqueValuesMap.set(item, (uniqueValuesMap.get(item) || 0) + 1);
+    let value = event.target.value; 
+    if (columnNo == 0) this.column1 = value;
+    if (columnNo == 1) this.column2 = value;
+   
+    if (this.column1 != -1 && this.column2 != -1){
+        
+      let datasets = [
+        { data: this.data[this.column2] },
+      ]
+      this.pieChartLabels = this.data[this.column1];
+      this.pieChartDatasets = datasets;
     }
-    const uniqueValues: any[] = [];
-    const counts: number[] = [];
-    for (const [value, count] of uniqueValuesMap) {
-        uniqueValues.push(value);
-        counts.push(count);
-    }
-    return [uniqueValues, counts];
   }
-
 }

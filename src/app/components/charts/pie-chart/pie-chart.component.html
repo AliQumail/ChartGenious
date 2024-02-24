@@ -1,18 +1,27 @@
-
-
-
 <div>
-    <select (change)="onChangeLineGraphSelectedColumns($event)">
-        <option [value]="-1"> Select X-Axis </option>
-        <option *ngFor="let col of columns; let i = index" [value]="i">{{ col }}</option>
-    </select>
-   
-    <canvas baseChart [width]="chartSize" [height]="chartSize"
+  <select (change)="onChangeLineGraphSelectedColumns($event, 0)">
+    <option [value]="-1">Select X-Axis</option>
+    <option *ngFor="let col of columns; let i = index" [value]="i">
+      {{ col }}
+    </option>
+  </select>
+  <select (change)="onChangeLineGraphSelectedColumns($event, 1)">
+    <option [value]="-1">Select X-Axis</option>
+    <option *ngFor="let col of columns; let i = index" [value]="i">
+      {{ col }}
+    </option>
+  </select>
+
+  <canvas
+    baseChart
+    [width]="chartSize"
+    [height]="chartSize"
     [type]="'pie'"
     [datasets]="pieChartDatasets"
     [labels]="pieChartLabels"
     [options]="pieChartOptions"
     [plugins]="pieChartPlugins"
-    [legend]="pieChartLegend">
+    [legend]="pieChartLegend"
+  >
   </canvas>
 </div>
