@@ -10,10 +10,16 @@ import { GlobalConstants } from "../../../global-constants"
 export class BarChartComponent {
   title = 'ng2-charts-demo';
   @Input() chartSize: string = "325";
+  @Input() columns: string[] = [];
+  @Input() data: any[] = [];
 
   
  chartHeight = GlobalConstants.CHART_HEIGHT;
  chartWidth = GlobalConstants.CHART_WIDTH;
+
+ column1: number = -1; 
+ column2: number = -1; 
+ column3: number = -1; 
 
   public barChartLegend = true;
   public barChartPlugins = [];
@@ -29,5 +35,25 @@ export class BarChartComponent {
   public barChartOptions: ChartConfiguration<'bar'>['options'] = {
     responsive: false,
   };
+
+  onChangeSelectColumn(event: any, columnNo: number){
+    let value = event.target.value; 
+    if (columnNo == 0) this.column1 = value;
+    if (columnNo == 1) this.column2 = value;
+    if (columnNo == 2) this.column3 = value;
+   
+    if (this.column1 != -1 && this.column2 != -1 && this.column3 != -1){
+      let labels = this.data[this.column1];      
+      let datasets = [
+        { data: this.data[this.column2], label: this.columns[this.column2] },
+        { data: this.data[this.column3], label: this.columns[this.column3] }
+      ]
+      this.barChartData = {
+        labels: labels,
+        datasets: datasets
+      };
+    }
+    
+  }
 
 }

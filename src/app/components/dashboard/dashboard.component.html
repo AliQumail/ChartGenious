@@ -67,7 +67,7 @@
           <app-pie-chart [columns]="columns" [data]="data"[chartSize]="chartSize"></app-pie-chart>
         </div>
         <div *ngIf="chart == 'bar'">
-          <app-bar-chart [chartSize]="chartSize"></app-bar-chart>
+          <app-bar-chart [columns]="columns" [data]="data" [chartSize]="chartSize"></app-bar-chart>
         </div>
         <div *ngIf="chart == 'doughnut'">
           <app-doughnut-chart [chartSize]="chartSize"></app-doughnut-chart>

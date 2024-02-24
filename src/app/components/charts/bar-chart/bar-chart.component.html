@@ -1,3 +1,18 @@
+<select (change)="onChangeSelectColumn($event, 0)" [(ngModel)]="column1">
+        <option [value]="-1"> Select labels </option>
+        <option *ngFor="let col of columns; let i = index" [value]="i">{{ col }}</option>
+</select>
+      
+<select (change)="onChangeSelectColumn($event, 1)" [(ngModel)]="column2">
+        <option [value]="-1"> Select Column 1 </option>
+        <option *ngFor="let col of columns; let i = index" [value]="i">{{ col }}</option>
+</select>
+<select (change)="onChangeSelectColumn($event, 2)" [(ngModel)]="column3">
+        <option [value]="-1"> Select Column 2  </option>
+        <option *ngFor="let col of columns; let i = index" [value]="i">{{ col }}</option>
+</select>
+      
+
 <canvas baseChart [width]="chartSize" [height]="chartSize"
         [data]="barChartData"
         [options]="barChartOptions"
