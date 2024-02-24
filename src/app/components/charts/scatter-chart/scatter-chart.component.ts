@@ -42,19 +42,23 @@ export class ScatterChartComponent {
     if (columnNo == 1) this.column2 = value;
     let data = [];
     if (this.column1 != -1 && this.column2 != -1){
-   
       let colLen = this.data[this.column1].length;
       for ( let i = 0; i< colLen ; i++ ){ 
-        data.push({x: this.data[this.column1][i], y: this.data[this.column2][i]})
+        data.push(
+          { x: this.data[this.column1][i], 
+            y: this.data[this.column2][i]
+          }
+        )
       }
     }
-    let obj1 = {
-      data: data,
-      label: 'Series A',
-      pointRadius: 10,
-    }
-    console.log(obj1);
-    this.scatterChartDatasets = [obj1];
-    
+    // 
+    let results = [
+      {
+        data: data,
+        label: 'Series A',
+        pointRadius: 10,
+      }
+    ]
+    this.scatterChartDatasets = results;
   }
 }
