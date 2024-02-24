@@ -70,7 +70,7 @@
           <app-bar-chart [columns]="columns" [data]="data" [chartSize]="chartSize"></app-bar-chart>
         </div>
         <div *ngIf="chart == 'doughnut'">
-          <app-doughnut-chart [chartSize]="chartSize"></app-doughnut-chart>
+          <app-doughnut-chart [columns]="columns" [data]="data" [chartSize]="chartSize"></app-doughnut-chart>
         </div>
         <div *ngIf="chart == 'polar'">
           <app-polar-area-chart [columns]="columns" [data]="data" [chartSize]="chartSize"></app-polar-area-chart>
