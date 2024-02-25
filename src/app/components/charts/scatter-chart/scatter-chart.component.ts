@@ -13,6 +13,7 @@ export class ScatterChartComponent {
   @Input() chartSize: string = "325";
   @Input() data: any[] = [];
   @Input() columns: string[] = [];
+  @Input() hideDropdown: boolean = false;
   column1: number = -1;
   column2: number = -1; 
 

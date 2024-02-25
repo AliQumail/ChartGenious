@@ -1,19 +1,29 @@
-
-      <div>
-        <select (change)="onChangeLineGraphSelectedColumns($event, 0)" [(ngModel)]="lineGraphSelectedColumn1">
-          <option [value]="-1"> Select X-Axis </option>
-          <option *ngFor="let col of columns; let i = index" [value]="i">{{ col }}</option>
-        </select>
-        <select (change)="onChangeLineGraphSelectedColumns($event, 1)" [(ngModel)]="lineGraphSelectedColumn2">
-          <option [value]="-1"> Select Y-Axis </option>
-          <option *ngFor="let col of columns; let i = index" [value]="i">{{ col }}</option>
-        </select>
-        <canvas baseChart [width]="chartSize" [height]="chartSize"
-                [type]="'line'"
-                [data]="lineChartData"
-                [options]="lineChartOptions"
-                [legend]="lineChartLegend">
-        </canvas>
-      </div>
-   
-  
+<div *ngIf="hideDropdown == false">
+<select (change)="onChangeLineGraphSelectedColumns($event, 0)"
+  [(ngModel)]="lineGraphSelectedColumn1"
+>
+  <option [value]="-1">Select X-Axis</option>
+  <option *ngFor="let col of columns; let i = index" [value]="i">
+    {{ col }}
+  </option>
+</select>
+<select
+  (change)="onChangeLineGraphSelectedColumns($event, 1)"
+  [(ngModel)]="lineGraphSelectedColumn2"
+>
+  <option [value]="-1">Select Y-Axis</option>
+  <option *ngFor="let col of columns; let i = index" [value]="i">
+    {{ col }}
+  </option>
+</select>
+</div>
+<canvas
+  baseChart
+  [width]="chartSize"
+  [height]="chartSize"
+  [type]="'line'"
+  [data]="lineChartData"
+  [options]="lineChartOptions"
+  [legend]="lineChartLegend"
+>
+</canvas>

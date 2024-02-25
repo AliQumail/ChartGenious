@@ -10,6 +10,7 @@ export class LineChartComponent {
   @Input() columns: string[] = [];
   @Input() data: any[] = [];
   @Input() chartSize: string = "325";
+  @Input() hideDropdown: boolean = false;
 
   chartHeight = GlobalConstants.CHART_HEIGHT;
   chartWidth = GlobalConstants.CHART_WIDTH;

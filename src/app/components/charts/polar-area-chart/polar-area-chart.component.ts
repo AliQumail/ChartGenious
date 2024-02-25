@@ -10,10 +10,13 @@ export class PolarAreaChartComponent {
 
   title = 'ng2-charts-demo';
   @Input() chartSize: string = "325";
-  chartHeight = GlobalConstants.CHART_HEIGHT;
-  chartWidth = GlobalConstants.CHART_WIDTH;
   @Input() data: any[] = [];
   @Input() columns: string[] = [];
+  @Input() hideDropdown: boolean = false;
+
+  chartHeight = GlobalConstants.CHART_HEIGHT;
+  chartWidth = GlobalConstants.CHART_WIDTH;
+
   column1: number = -1;
   column2: number = -1; 
  

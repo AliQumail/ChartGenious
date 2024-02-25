@@ -58,25 +58,26 @@
     <button (click)="onClickChangeView(1)">1</button>
     <button (click)="onClickChangeView(2)">2</button>
     <button (click)="onClickChangeView(3)">3</button>
+    <button (click)="onHideBtnClick()">hide</button>
     <div nz-row>
       <div *ngFor="let chart of displayCharts" nz-col [nzSpan]="viewType" style="margin-top: 2.5rem;">
         <div *ngIf="chart == 'line'">
-          <app-line-chart [columns]="columns" [data]="data" [chartSize]="chartSize"></app-line-chart>
+          <app-line-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data" [chartSize]="chartSize"></app-line-chart>
         </div>
         <div *ngIf="chart == 'pie'">
-          <app-pie-chart [columns]="columns" [data]="data"[chartSize]="chartSize"></app-pie-chart>
+          <app-pie-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"[chartSize]="chartSize"></app-pie-chart>
         </div>
         <div *ngIf="chart == 'bar'">
-          <app-bar-chart [columns]="columns" [data]="data" [chartSize]="chartSize"></app-bar-chart>
+          <app-bar-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data" [chartSize]="chartSize"></app-bar-chart>
         </div>
         <div *ngIf="chart == 'doughnut'">
-          <app-doughnut-chart [columns]="columns" [data]="data" [chartSize]="chartSize"></app-doughnut-chart>
+          <app-doughnut-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data" [chartSize]="chartSize"></app-doughnut-chart>
         </div>
         <div *ngIf="chart == 'polar'">
-          <app-polar-area-chart [columns]="columns" [data]="data" [chartSize]="chartSize"></app-polar-area-chart>
+          <app-polar-area-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data" [chartSize]="chartSize"></app-polar-area-chart>
         </div>
         <div *ngIf="chart == 'scatter'">
-          <app-scatter-chart [columns]="columns" [data]="data" [chartSize]="chartSize"></app-scatter-chart>
+          <app-scatter-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data" [chartSize]="chartSize"></app-scatter-chart>
         </div>
       </div>
     </div>   

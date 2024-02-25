@@ -11,6 +11,7 @@ export class PieChartComponent {
   @Input() columns: string[] = [];
   @Input() data: any[] = [];
   @Input() chartSize: string = "325";
+  @Input() hideDropdown: boolean = false;
   title = 'ng2-charts-demo';
 
   chartHeight = GlobalConstants.CHART_HEIGHT;

@@ -12,9 +12,8 @@ export class DashboardComponent implements OnInit {
   columns: string[] = [];
   data: any[] = [];
   section : number = 1;
-  chartSize = "325"; 
-
-  
+  chartSize = "325";
+  hideDropdown: boolean = false; 
 
   selectChartCount = {
     line: 0,
@@ -127,6 +126,14 @@ export class DashboardComponent implements OnInit {
         labels: labels,
         datasets: datasets
       }
+    }
+  }
+
+  onHideBtnClick(){
+    if (this.hideDropdown){
+      this.hideDropdown = false;    
+    } else {
+      this.hideDropdown = true;
     }
   }
 }

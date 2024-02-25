@@ -11,6 +11,7 @@ export class DoughnutChartComponent {
   @Input() chartSize: string = "325";
   @Input() columns: string[] = [];
   @Input() data: any[] = [];
+  @Input() hideDropdown: boolean = false;
 
   title = 'ng2-charts-demo';
 

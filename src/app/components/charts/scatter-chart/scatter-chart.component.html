@@ -1,3 +1,4 @@
+<div *ngIf="hideDropdown == false">
 <select (change)="onChangeSelectColumn($event, 0)" [(ngModel)]="column1">
         <option [value]="-1"> Select X-Axis </option>
         <option *ngFor="let col of columns; let i = index" [value]="i">{{ col }}</option>
@@ -7,6 +8,7 @@
         <option [value]="-1"> Select Y-Axis </option>
         <option *ngFor="let col of columns; let i = index" [value]="i">{{ col }}</option>
 </select>
+</div>
 
 <canvas baseChart [width]="chartSize" [height]="chartSize"
         [datasets]="scatterChartDatasets"
