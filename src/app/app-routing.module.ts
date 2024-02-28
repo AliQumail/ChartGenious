@@ -6,6 +6,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 const routes: Routes = [
     { path: 'home', component: HomeComponent},
     { path: 'dashboard', component: DashboardComponent},
+    { path: '', redirectTo: '/home', pathMatch: 'full' }, // Default route
+    { path: '**', redirectTo: '/home', pathMatch: 'full' } // Redirect all other routes to /home
 ];
 
 @NgModule({

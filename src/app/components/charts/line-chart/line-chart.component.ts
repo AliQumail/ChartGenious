@@ -51,11 +51,9 @@ export class LineChartComponent {
 
   addLineChart(){
     this.noOfCharts.push(1)
-    console.log(this.noOfCharts);
   }
 
   onChangeLineGraphSelectedColumns(event: any, columnNo: number){
-    console.log("clicked")
     let value = event.target.value; 
     if (columnNo == 0) this.lineGraphSelectedColumn1 = value;
     if (columnNo == 1) this.lineGraphSelectedColumn2 = value;
@@ -78,9 +76,6 @@ export class LineChartComponent {
         labels: labels,
         datasets: datasets
       }
-
-      console.log(this.lineChartData);
-
     }
   }
 
