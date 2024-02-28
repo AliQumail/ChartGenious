@@ -8,7 +8,7 @@ import { GlobalConstants } from "../../../global-constants"
 })
 export class LineChartComponent {
   @Input() columns: string[] = [];
-  @Input() data: any[] = [];
+  @Input() data: any = [];
   @Input() chartSize: string = "325";
   @Input() hideDropdown: boolean = false;
 
@@ -18,8 +18,9 @@ export class LineChartComponent {
 
   noOfCharts : number[] = [1];
    // Line graph
-   lineGraphSelectedColumn1: number = -1; 
-   lineGraphSelectedColumn2: number = -1; 
+   selectedCol1: number = -1; 
+   selectedCol2: number = -1; 
+   sortType: number = 0; // No sort is 0, ascending is 1, descending in -1 
    showLineGraph: boolean = false; 
    public lineChartData: ChartConfiguration<'line'>['data'] = {
      labels: [
@@ -47,23 +48,20 @@ export class LineChartComponent {
    };
    public lineChartLegend = true;
 
-   // Line graph functions
+  onSelectColumn(event: any, selectNo: number){
+    console.log(this.data[0]);
+    let colName = event.target.colName; 
+    if (selectNo == 0)  this.selectedCol1 = colName 
+    else if (selectNo == 1) this.selectedCol2 = colName
+    else if (selectNo == 2) this.sortType = colName
 
-  addLineChart(){
-    this.noOfCharts.push(1)
-  }
-
-  onChangeLineGraphSelectedColumns(event: any, columnNo: number){
-    let value = event.target.value; 
-    if (columnNo == 0) this.lineGraphSelectedColumn1 = value;
-    if (columnNo == 1) this.lineGraphSelectedColumn2 = value;
-
-    if (this.lineGraphSelectedColumn1 != -1 && this.lineGraphSelectedColumn2 != -1){
+    if (this.selectedCol1 != -1 && this.selectedCol2 != -1){
+      // if (this.sortType != 0 ) this.sortData(this.sortType, this.selectedCol2); 
       this.showLineGraph = true;
-      let labels = this.data[this.lineGraphSelectedColumn1];
+      let labels = this.data[this.selectedCol1];
       let datasets = [
         {
-          data: this.data[this.lineGraphSelectedColumn2],
+          data: this.data[this.selectedCol2],
           label: 'Series A',
           fill: true,
           tension: 0.5,
@@ -79,4 +77,7 @@ export class LineChartComponent {
     }
   }
 
+  sortData(sortType: number, colToSortIdx: any){
+
+  }
 }

@@ -63,19 +63,31 @@ export class DashboardComponent implements OnInit {
       this.transformData(data);
     });
 
-    console.log(this.columns)
-    console.log(this.data);
+    // Return column names as an array
+    if (this.data.length > 0) this.columns = Object.keys(this.data[0]);
   }
 
-  transformData(data: any){
-    this.columns = data[0];
-    for (let i = 0; i < this.columns.length; i++) {
-      const columnValues = [];
-      for (let j = 1; j < data.length; j++) {
-        columnValues.push(data[j][i]);
+  // transformData(data: any){
+  //   this.columns = data[0];
+  //   for (let i = 0; i < this.columns.length; i++) {
+  //     const columnValues = [];
+  //     for (let j = 1; j < data.length; j++) {
+  //       columnValues.push(data[j][i]);
+  //     }
+  //     this.data.push(columnValues);
+  //   }
+  // }
+
+  transformData(data: any) {
+    const result = [];
+    for (let i = 1; i < data.length; i++) {
+      const obj : any = {};
+      for (let j = 0; j < data[i].length; j++) {
+        obj[data[0][j]] = data[i][j];
       }
-      this.data.push(columnValues);
+      result.push(obj);
     }
+    return result;
   }
 
   onClickChart(typeOfGraph: string){
