@@ -15,11 +15,9 @@ export class LineChartComponent {
   chartHeight = GlobalConstants.CHART_HEIGHT;
   chartWidth = GlobalConstants.CHART_WIDTH;
   
-
-  noOfCharts : number[] = [1];
    // Line graph
-   selectedCol1: number = -1; 
-   selectedCol2: number = -1; 
+   selectedCol1: string = ""; 
+   selectedCol2: string = ""; 
    sortType: number = 0; // No sort is 0, ascending is 1, descending in -1 
    showLineGraph: boolean = false; 
    public lineChartData: ChartConfiguration<'line'>['data'] = {
@@ -48,27 +46,26 @@ export class LineChartComponent {
    };
    public lineChartLegend = true;
 
-  onSelectColumn(event: any, selectNo: number){
-    console.log(this.data[0]);
-    let colName = event.target.colName; 
-    if (selectNo == 0)  this.selectedCol1 = colName 
-    else if (selectNo == 1) this.selectedCol2 = colName
-    else if (selectNo == 2) this.sortType = colName
+  onSelectDropdown(event: any, dropdownNo: number){
 
-    if (this.selectedCol1 != -1 && this.selectedCol2 != -1){
-      // if (this.sortType != 0 ) this.sortData(this.sortType, this.selectedCol2); 
-      this.showLineGraph = true;
-      let labels = this.data[this.selectedCol1];
+    // returns the index of the column
+    let columnName = event.target.value;
+    if (dropdownNo == 0)  this.selectedCol1 = columnName;
+    else if (dropdownNo == 1) this.selectedCol2 = columnName;
+    else if (dropdownNo == 2) this.sortType = columnName;
+
+    if (this.selectedCol1 != '' && this.selectedCol2 != ''){
+      // if (this.sortType != 0) this.sortData(this.sortType, this.selectedCol2)
+      let labels = this.data.map( (d: any) => d[this.selectedCol1]);
       let datasets = [
-        {
-          data: this.data[this.selectedCol2],
-          label: 'Series A',
-          fill: true,
-          tension: 0.5,
-          borderColor: 'black',
-          backgroundColor: 'rgba(255,0,0,0.3)'
-        }
-      ]
+      {
+        data: this.data.map( (d: any) => d[this.selectedCol2]),
+        label: 'Series A',
+        fill: true,
+        tension: 0.5,
+        borderColor: 'black',
+        backgroundColor: 'rgba(255,0,0,0.3)'
+      }];
 
       this.lineChartData = { 
         labels: labels,
@@ -77,7 +74,12 @@ export class LineChartComponent {
     }
   }
 
-  sortData(sortType: number, colToSortIdx: any){
-
-  }
+  // sortData(sortType: number, columnName: any){
+  //   let columnName = this.columns[columnName];
+  //   if (sortType == 1) {
+  //     this.data.sort( (a: any, b: any) => a[columnName] > b[columnName]);
+  //   } else if (sortType == -1) {
+  //     this.data.sort( (a: any, b: any) => a[columnName] > b[columnName]);
+  //   }
+  // }
 }

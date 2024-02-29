@@ -60,11 +60,14 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       const data = history.state.excelData;
-      this.transformData(data);
+      this.data = this.transformData(data);
+      
     });
-
     // Return column names as an array
     if (this.data.length > 0) this.columns = Object.keys(this.data[0]);
+
+    
+    
   }
 
   // transformData(data: any){
