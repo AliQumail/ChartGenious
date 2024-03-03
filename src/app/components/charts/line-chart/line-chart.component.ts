@@ -46,20 +46,27 @@ export class LineChartComponent {
    };
    public lineChartLegend = true;
 
+  trimRecords = 0; 
+  newLength = 0; 
   onSelectDropdown(event: any, dropdownNo: number){
+    let value = event.target.value;
+    if (dropdownNo == 0)  this.selectedCol1 = value; 
+    else if (dropdownNo == 1) this.selectedCol2 = value; 
+    else if (dropdownNo == 2) this.sortType = value;
+    else if (dropdownNo == 3) this.trimRecords = value;
 
-    // returns the index of the column
-    let columnName = event.target.value;
-    if (dropdownNo == 0)  this.selectedCol1 = columnName;
-    else if (dropdownNo == 1) this.selectedCol2 = columnName;
-    else if (dropdownNo == 2) this.sortType = columnName;
-
+    let tempData = this.data; 
     if (this.selectedCol1 != '' && this.selectedCol2 != ''){
-      // if (this.sortType != 0) this.sortData(this.sortType, this.selectedCol2)
-      let labels = this.data.map( (d: any) => d[this.selectedCol1]);
+      if (this.sortType != 0) tempData = this.sortData(tempData, this.sortType, this.selectedCol2);
+      if (this.trimRecords == 0) {
+        this.newLength = this.data.length; 
+      } else {
+        this.newLength = this.trimRecords;
+      }
+      let labels = tempData.slice(0, this.newLength).map( (d: any) => d[this.selectedCol1]);
       let datasets = [
       {
-        data: this.data.map( (d: any) => d[this.selectedCol2]),
+        data: tempData.slice(0, this.newLength).map( (d: any) => d[this.selectedCol2]),
         label: 'Series A',
         fill: true,
         tension: 0.5,
@@ -74,12 +81,14 @@ export class LineChartComponent {
     }
   }
 
-  // sortData(sortType: number, columnName: any){
-  //   let columnName = this.columns[columnName];
-  //   if (sortType == 1) {
-  //     this.data.sort( (a: any, b: any) => a[columnName] > b[columnName]);
-  //   } else if (sortType == -1) {
-  //     this.data.sort( (a: any, b: any) => a[columnName] > b[columnName]);
-  //   }
-  // }
+  sortData(data: any, sortType: number, columnName: string){
+    if (sortType == 1) {
+      data.sort((a: any, b: any) => a[columnName] - b[columnName])
+    } else if (sortType == -1) {
+      data.sort( (a: any, b: any) => b[columnName] - a[columnName]);
+    } else {
+      data = this.data; 
+    }
+    return data; 
+  }
 }
