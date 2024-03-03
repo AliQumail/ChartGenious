@@ -1,19 +1,19 @@
 <div *ngIf="hideDropdown == false">
   <select (change)="onSelectDropdown($event, 0)" [(ngModel)]="selectedCol1">
-    <option [value]="-1">Select X-Axis</option>
+    <option [value]="">Select X-Axis</option>
     <option *ngFor="let col of columns" [value]="col">
       {{ col }}
     </option>
   </select>
   <select (change)="onSelectDropdown($event, 1)" [(ngModel)]="selectedCol2">
-    <option [value]="-1">Select Y-Axis</option>
+    <option [value]="">Select Y-Axis</option>
     <option *ngFor="let col of columns" [value]="col">
       {{ col }}
     </option>
   </select>
   
   <select (change)="onSelectDropdown($event, 2)" [(ngModel)]="sortType">
-    <option [value]="0">Select Sort Type</option>
+    <option [value]="0">No sort</option>
     <option [value]="1">Ascending</option>
     <option [value]="-1">Descending</option>
   </select>

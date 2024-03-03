@@ -57,7 +57,7 @@ export class LineChartComponent {
 
     let tempData = this.data; 
     if (this.selectedCol1 != '' && this.selectedCol2 != ''){
-      if (this.sortType != 0) tempData = this.sortData(tempData, this.sortType, this.selectedCol2);
+      tempData = this.sortData(tempData, this.sortType, this.selectedCol2);
       if (this.trimRecords == 0) {
         this.newLength = this.data.length; 
       } else {

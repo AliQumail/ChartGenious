@@ -32,22 +32,45 @@ export class PieChartComponent {
   constructor() {
   }
 
-  column1: number = -1;
-  column2: number = -1;
+  column1: string = '';
+  column2: string = '';
+  sortType: number = 0; // No sort is 0, ascending is 1, descending in -1 
+  trimRecords = 0; 
+  newLength = 0; 
 
-  onChangeLineGraphSelectedColumns(event: any, columnNo: number)
+  onChangeLineGraphSelectedColumns(event: any, dropdownNo: number)
   {
     let value = event.target.value; 
-    if (columnNo == 0) this.column1 = value;
-    if (columnNo == 1) this.column2 = value;
-   
-    if (this.column1 != -1 && this.column2 != -1){
+    if (dropdownNo == 0) this.column1 = value;
+    else if (dropdownNo == 1) this.column2 = value;
+    else if (dropdownNo == 2) this.sortType = value;
+    else if (dropdownNo == 3) this.trimRecords = value;
+    
+    let tempData = this.data; 
+    if (this.column1 != '' && this.column2 != ''){
+      tempData = this.sortData(tempData, this.sortType, this.column2);
+      if (this.trimRecords == 0) {
+        this.newLength = this.data.length; 
+      } else {
+        this.newLength = this.trimRecords;
+      }
         
       let datasets = [
-        { data: this.data[this.column2] },
+        { data: tempData.slice(0, this.newLength).map( (d: any) => d[this.column2]) },
       ]
-      this.pieChartLabels = this.data[this.column1];
+      this.pieChartLabels = tempData.slice(0, this.newLength).map( (d: any) => d[this.column1])
       this.pieChartDatasets = datasets;
     }
+  }
+
+  sortData(data: any, sortType: number, columnName: string){
+    if (sortType == 1) {
+      data.sort((a: any, b: any) => a[columnName] - b[columnName])
+    } else if (sortType == -1) {
+      data.sort( (a: any, b: any) => b[columnName] - a[columnName]);
+    } else {
+      data = this.data; 
+    }
+    return data; 
   }
 }
