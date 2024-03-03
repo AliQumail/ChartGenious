@@ -15,7 +15,8 @@
       </select>
       <select (change)="onChangeSelectColumn($event, 3)" [(ngModel)]="trimRecords">
         <option [value]="0">Select All</option>
-        <option [value]="3">Show top 5</option>
+        <option [value]="3">Show top 3</option>
+        <option [value]="5">Show top 5</option>
         <option [value]="10">Show top 10</option>
       </select>
 </div>
