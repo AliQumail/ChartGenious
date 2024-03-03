@@ -1,13 +1,23 @@
 <div *ngIf="hideDropdown == false">
 <select (change)="onChangeSelectColumn($event, 0)" [(ngModel)]="column1">
-        <option [value]="-1"> Select X-Axis </option>
-        <option *ngFor="let col of columns; let i = index" [value]="i">{{ col }}</option>
+        <option [value]=""> Select X-Axis </option>
+        <option *ngFor="let col of columns" [value]="col">{{ col }}</option>
 </select>
       
 <select (change)="onChangeSelectColumn($event, 1)" [(ngModel)]="column2">
-        <option [value]="-1"> Select Y-Axis </option>
-        <option *ngFor="let col of columns; let i = index" [value]="i">{{ col }}</option>
+        <option [value]=""> Select Y-Axis </option>
+        <option *ngFor="let col of columns" [value]="col">{{ col }}</option>
 </select>
+<select (change)="onChangeSelectColumn($event, 2)" [(ngModel)]="sortType">
+        <option [value]="0">No sort</option>
+        <option [value]="1">Ascending</option>
+        <option [value]="-1">Descending</option>
+      </select>
+      <select (change)="onChangeSelectColumn($event, 3)" [(ngModel)]="trimRecords">
+        <option [value]="0">Show all</option>
+        <option [value]="3">Show top 5</option>
+        <option [value]="10">Show top 10</option>
+      </select>
 </div>
 
 <canvas baseChart [width]="chartSize" [height]="chartSize"
