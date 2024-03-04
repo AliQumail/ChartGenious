@@ -60,7 +60,8 @@
     <button (click)="onClickChangeView(3)">3</button>
     <button (click)="onHideBtnClick()">hide</button>
     <div nz-row>
-      <div *ngFor="let chart of displayCharts" nz-col [nzSpan]="viewType" style="margin-top: 2.5rem;">
+      <div *ngFor="let chart of displayCharts; let i = index" nz-col [nzSpan]="viewType" style="margin-top: 2.5rem;">
+        <button (click)="handleDelete(i)">Delete</button>
         <div *ngIf="chart == 'line'">
           <app-line-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data" [chartSize]="chartSize"></app-line-chart>
         </div>

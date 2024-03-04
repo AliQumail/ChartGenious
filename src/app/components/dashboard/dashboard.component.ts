@@ -151,4 +151,17 @@ export class DashboardComponent implements OnInit {
       this.hideDropdown = true;
     }
   }
+
+  handleDelete(idx: number){
+    let typeOfGraph = this.displayCharts[idx];
+    
+    if (typeOfGraph == 'line') this.selectChartCount.line -=1;
+    if (typeOfGraph == 'pie') this.selectChartCount.pie -=1;
+    if (typeOfGraph == 'polar') this.selectChartCount.polar -=1;
+    if (typeOfGraph == 'doughnut') this.selectChartCount.doughnut -=1;
+    if (typeOfGraph == 'bar') this.selectChartCount.bar -=1;
+    if (typeOfGraph == 'scatter') this.selectChartCount.scatter -=1;
+    
+    this.displayCharts.splice(idx, 1);
+  }
 }
