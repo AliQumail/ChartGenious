@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ChartConfiguration, ChartOptions, ChartType } from "chart.js";
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -56,7 +57,8 @@ export class DashboardComponent implements OnInit {
 
   displayCharts : string[] = [];
   
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef) {}
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       const data = history.state.excelData;
@@ -103,20 +105,23 @@ export class DashboardComponent implements OnInit {
     if (typeOfGraph == 'bar') this.selectChartCount.bar +=1;
     if (typeOfGraph == 'scatter') this.selectChartCount.scatter +=1;
   }
-
+  chartTypeRef: string | null = null;
   viewType : string = "8";
   onClickChangeView(view: number){
     if (view == 1) {
-      this.viewType = "8"
-      this.chartSize = "325"
+      this.viewType = "24"
+      //this.chartSize = "700"
     } else  if (view == 2){
       this.viewType = "12"
-      this.chartSize = "500"
+      //this.chartSize = "500"
     } else {
-      this.viewType = "24"
-      this.chartSize = "700"
+      this.viewType = "8"
+      //this.chartSize = "325"
     }
+    this.chartTypeRef = null; // Reset the chart type
+  this.cdr.detectChanges(); // Manually trigger change detection
   }
+
   // Line graph functions
   onChangeLineGraphSelectedColumns(event: any, columnNo: number){
     let value = event.target.value; 
