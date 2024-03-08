@@ -56,12 +56,15 @@
   </div>
   <div nz-col nzSpan="20" style="padding: 0rem 3rem;" >
     <!-- <button (click)="onClickChangeView(1)">1</button> -->
-    <button (click)="onClickChangeView(2)">2</button>
-    <button (click)="onClickChangeView(3)">3</button>
-    <button (click)="onHideBtnClick()">hide</button>
+    <button (click)="onClickChangeView(2)"><fa-icon [icon]="fa2"></fa-icon></button>
+    <button (click)="onClickChangeView(3)"><fa-icon [icon]="fa3"></fa-icon></button>
+    <button (click)="onHideBtnClick()"><fa-icon [icon]="faEye"></fa-icon></button>
+    <button><fa-icon [icon]="faPrint"></fa-icon></button>
     <div nz-row>
       <div *ngFor="let chart of displayCharts; let i = index" nz-col [nzSpan]="viewType" style="margin-top: 2.5rem;">
-        <button *ngIf="hideDropdown != true"  (click)="handleDelete(i)">Delete</button>
+        <button *ngIf="hideDropdown != true"  (click)="handleDelete(i)">
+          <fa-icon [icon]="faXmark"></fa-icon>
+        </button>
         <div *ngIf="chart == 'line'">
           <app-line-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data" [chartSize]="chartSize"></app-line-chart>
         </div>

@@ -21,7 +21,7 @@ import { DoughnutChartComponent } from './components/charts/doughnut-chart/dough
 import { ScatterChartComponent } from './components/charts/scatter-chart/scatter-chart.component';
 import { PolarAreaChartComponent } from './components/charts/polar-area-chart/polar-area-chart.component';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,8 +45,8 @@ import { NzBadgeModule } from 'ng-zorro-antd/badge';
     NzBadgeModule,
     FormsModule,
     BrowserAnimationsModule,
-    HttpClientModule
-  
+    HttpClientModule,
+    FontAwesomeModule
   ],
 
   providers: [],

@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ChartConfiguration, ChartOptions, ChartType } from "chart.js";
 import { ChangeDetectorRef } from '@angular/core';
+import { faXmark, faPrint, fa2, fa3 } from '@fortawesome/free-solid-svg-icons';
+import {faEye} from "@fortawesome/free-regular-svg-icons"; 
 
 @Component({
   selector: 'app-dashboard',
@@ -15,6 +17,12 @@ export class DashboardComponent implements OnInit {
   section : number = 1;
   chartSize = "325";
   hideDropdown: boolean = false; 
+
+  faXmark = faXmark;
+  faEye = faEye;
+  faPrint = faPrint;
+  fa2 = fa2; 
+  fa3 = fa3;
 
   selectChartCount = {
     line: 0,
