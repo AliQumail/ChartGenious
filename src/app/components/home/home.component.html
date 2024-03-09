@@ -1,6 +1,40 @@
-Update File: 
-<div>
-    <input type="file" (change)="onFileChange($event)" accept=".xlsx, .xls"/>
-</div>
 
-<!-- <button nz-button nzType="primary">Primary Button</button> -->
+<div>
+    <h2 style="padding: 1rem;">ChartGenious</h2>
+</div>
+<div style="padding: 50px">
+  <div nz-row nzGutter="16">
+    <div nz-col nzSpan="12">
+      <div class="landing-text">
+        <h1>Welcome to ChartGenious!</h1>
+        <p style="font-style: italic; font-size: 1.3rem;">
+          the ultimate tool for turning data into visual insights! With an
+          easy-to-use interface, choose from various chart types to create
+          customized visualizations effortlessly. Say hello to clear, compelling
+          insights in just a few clicks. Start charting your data journey with
+          Chartify today!
+        </p>
+
+        <div class="file-input-container">
+            <div class="file-input-wrapper">
+              <label for="fileInput" class="custom-file-input">Choose File</label>
+              <input
+                type="file"
+                id="fileInput"
+                class="hidden-input"
+                (change)="onFileChange($event)"
+                accept=".xlsx, .xls"
+              />
+            </div>
+          </div>
+          
+        <!-- Add more text or content here -->
+      </div>
+    </div>
+    <div nz-col nzSpan="12">
+      <div class="landing-image">
+        <img src="assets/home.png" alt="Image Description" width="500px" />
+      </div>
+    </div>
+  </div>
+</div>
