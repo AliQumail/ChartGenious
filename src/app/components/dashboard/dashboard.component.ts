@@ -25,6 +25,8 @@ export class DashboardComponent implements OnInit {
   fa2 = fa2; 
   fa3 = fa3;
 
+  showRawData: boolean = true;
+
   selectChartCount = {
     line: 0,
     pie: 0,
@@ -89,6 +91,11 @@ export class DashboardComponent implements OnInit {
   //   }
   // }
 
+
+  onClickViewRawData(){
+    this.showRawData = true;
+  }
+
   transformData(data: any) {
     const result = [];
     for (let i = 1; i < data.length; i++) {
@@ -102,6 +109,7 @@ export class DashboardComponent implements OnInit {
   }
 
   onClickChart(typeOfGraph: string){
+    this.showRawData = false;
     this.displayCharts.push(typeOfGraph);
 
     if (typeOfGraph == 'line') this.selectChartCount.line +=1;
