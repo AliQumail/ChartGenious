@@ -4,6 +4,7 @@ import { ChartConfiguration, ChartOptions, ChartType } from "chart.js";
 import { ChangeDetectorRef } from '@angular/core';
 import { faXmark, faPrint, fa2, fa3 } from '@fortawesome/free-solid-svg-icons';
 import {faEye} from "@fortawesome/free-regular-svg-icons"; 
+import { NzSpaceModule } from 'ng-zorro-antd/space';
 
 @Component({
   selector: 'app-dashboard',
@@ -74,10 +75,7 @@ export class DashboardComponent implements OnInit {
       
     });
     // Return column names as an array
-    if (this.data.length > 0) this.columns = Object.keys(this.data[0]);
-
-    
-    
+    if (this.data.length > 0) this.columns = Object.keys(this.data[0]);   
   }
 
   // transformData(data: any){
@@ -177,4 +175,14 @@ export class DashboardComponent implements OnInit {
     
     this.displayCharts.splice(idx, 1);
   }
+
+  // onPrint(divName: string){
+  //    const printContents: any = document.getElementById(divName)?.innerHTML;
+  //    const originalContents = document.body.innerHTML;
+  //    document.body.innerHTML = printContents;
+  //    window.print();
+  //    document.body.innerHTML = originalContents;
+  // }
+
+ 
 }

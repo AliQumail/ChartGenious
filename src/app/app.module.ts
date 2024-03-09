@@ -22,6 +22,10 @@ import { ScatterChartComponent } from './components/charts/scatter-chart/scatter
 import { PolarAreaChartComponent } from './components/charts/polar-area-chart/polar-area-chart.component';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +50,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NzPageHeaderModule,
+    NzDescriptionsModule,
+    NzSpaceModule
   ],
 
   providers: [],
