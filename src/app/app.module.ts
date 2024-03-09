@@ -25,7 +25,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
-
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +53,8 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
     FontAwesomeModule,
     NzPageHeaderModule,
     NzDescriptionsModule,
-    NzSpaceModule
+    NzSpaceModule,
+    NzLayoutModule 
   ],
 
   providers: [],

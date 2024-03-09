@@ -16,3 +16,58 @@
     color: rgb(164, 41, 41);
     font-size: 1.3rem;
 }
+
+.fixed-column {
+    position: fixed;
+    overflow-y: auto;
+    z-index: 1; /* Ensure it's above the scrollable column */
+  }
+  
+  .scrollable-column {
+    overflow-y: auto;
+    padding-left: 3rem;
+    
+  }
+
+
+  .logo {
+    height: 32px;
+    
+    margin: 16px;
+  }
+
+  .layout {
+    min-height: 100vh;
+    background-color: white;
+  }
+
+  nz-sider {
+    overflow: auto;
+    height: 100%;
+    position: fixed;
+    left: 0;
+  }
+
+  .right-layout {
+    margin-left: 200px;
+  }
+
+  nz-header {
+    background: #fff;
+    padding: 0;
+  }
+
+  nz-content {
+    margin: 24px 16px 0;
+    overflow: initial;
+  }
+
+  .inner-content {
+    padding: 24px;
+    background: #fff;
+    
+  }
+
+  nz-footer {
+    text-align: center;
+  }

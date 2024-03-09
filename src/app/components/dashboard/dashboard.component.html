@@ -1,14 +1,14 @@
-<div class="site-page-header-ghost-wrapper">
+<div class="site-page-header-ghost-wrapper" style="position: fixed;">
   <nz-page-header nzBackIcon [nzGhost]="false" style="background-color: rgb(203, 203, 202);">
     <nz-page-header-title>ChartGenious</nz-page-header-title>
   </nz-page-header>
 </div>
 
-
-<br>
-<div nz-row>
-  <div nz-col nzSpan="4">
-     <ul nz-menu nzMode="inline">
+<nz-layout class="layout">
+  <nz-sider [nzTheme]="'light'">
+    <h2 nz-typography style="padding-left: 1.5rem; padding-top: 1rem;">ChartGenious</h2>
+    <hr>
+    <ul nz-menu nzMode="inline" style="margin-top: 3rem;">
       <li nz-submenu nzTitle="Data" nzIcon="mail" nzOpen>
         <ul>
           <li nz-menu-item>View raw data</li>
@@ -61,39 +61,42 @@
         </ul>
       </li>
     </ul>
-  </div>
-  <div nz-col nzSpan="20" style="padding: 0rem 3rem;" >
-    <!-- <button (click)="onClickChangeView(1)">1</button> -->
-    <nz-space>
-      <button *nzSpaceItem nz-button (click)="onClickChangeView(2)"><fa-icon [icon]="fa2"></fa-icon></button>
-      <button *nzSpaceItem nz-button (click)="onClickChangeView(3)"><fa-icon [icon]="fa3"></fa-icon></button>
-      <button *nzSpaceItem nz-button (click)="onHideBtnClick()"><fa-icon [icon]="faEye"></fa-icon></button>
-    </nz-space>
-    <!-- <button type="button" (click)="onPrint('sectionToPrint')"><fa-icon [icon]="faPrint"></fa-icon></button> -->
-    <div nz-row id="sectionToPrint">
-      <div *ngFor="let chart of displayCharts; let i = index" nz-col [nzSpan]="viewType" style="margin-top: 2.5rem;">
-        <button *ngIf="hideDropdown != true"  (click)="handleDelete(i)" class="delete-btn">
-          <fa-icon [icon]="faXmark"></fa-icon>
-        </button>
-        <div *ngIf="chart == 'line'">
-          <app-line-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-line-chart>
+  </nz-sider>
+  <nz-layout class="right-layout">
+    <nz-header></nz-header>
+    <nz-content>
+      <div class="inner-content">   
+      <!-- <button type="button"><fa-icon [icon]="faPrint"></fa-icon></button>  -->
+      <nz-space> <button type="button" (click)="onClickChangeView(2)"><fa-icon [icon]="fa2"></fa-icon></button>
+        <button type="button" (click)="onClickChangeView(3)"><fa-icon [icon]="fa3"></fa-icon></button>
+        <button type="button"  (click)="onHideBtnClick()"><fa-icon [icon]="faEye"></fa-icon></button></nz-space>  
+     
+      <div nz-row id="sectionToPrint">
+        <div *ngFor="let chart of displayCharts; let i = index" nz-col [nzSpan]="viewType" style="margin-top: 2.5rem;">
+          <button *ngIf="hideDropdown != true"  (click)="handleDelete(i)" class="delete-btn">
+            <fa-icon [icon]="faXmark"></fa-icon>
+          </button>
+          <div *ngIf="chart == 'line'">
+            <app-line-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-line-chart>
+          </div>
+          <div *ngIf="chart == 'pie'">
+            <app-pie-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-pie-chart>
+          </div>
+          <div *ngIf="chart == 'bar'">
+            <app-bar-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-bar-chart>
+          </div>
+          <div *ngIf="chart == 'doughnut'">
+            <app-doughnut-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-doughnut-chart>
+          </div>
+          <div *ngIf="chart == 'polar'">
+            <app-polar-area-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-polar-area-chart>
+          </div>
+          <div *ngIf="chart == 'scatter'">
+            <app-scatter-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-scatter-chart>
+          </div>
         </div>
-        <div *ngIf="chart == 'pie'">
-          <app-pie-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-pie-chart>
-        </div>
-        <div *ngIf="chart == 'bar'">
-          <app-bar-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-bar-chart>
-        </div>
-        <div *ngIf="chart == 'doughnut'">
-          <app-doughnut-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-doughnut-chart>
-        </div>
-        <div *ngIf="chart == 'polar'">
-          <app-polar-area-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-polar-area-chart>
-        </div>
-        <div *ngIf="chart == 'scatter'">
-          <app-scatter-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-scatter-chart>
-        </div>
+      </div>   
       </div>
-    </div>   
-  </div>
-</div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
