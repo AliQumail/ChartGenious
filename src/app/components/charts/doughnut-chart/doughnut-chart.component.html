@@ -1,11 +1,11 @@
 <div *ngIf="hideDropdown == false">
 <select (change)="onChangeSelectColumn($event, 0)" [(ngModel)]="column1">
-        <option [value]=""> Select labels </option>
+        <option [value]='""' selected> Select labels </option>
         <option *ngFor="let col of columns" [value]="col">{{ col }}</option>
 </select>
       
 <select (change)="onChangeSelectColumn($event, 1)" [(ngModel)]="column2">
-        <option [value]=""> Select Column 1 </option>
+        <option [value]='""' selected> Select Column 1 </option>
         <option *ngFor="let col of columns" [value]="col">{{ col }}</option>
 </select>
 <select (change)="onChangeSelectColumn($event, 2)" [(ngModel)]="sortType">
