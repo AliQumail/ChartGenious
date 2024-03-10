@@ -26,6 +26,7 @@ import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { RawDataTableComponent } from './components/raw-data-table/raw-data-table.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +37,8 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
     BarChartComponent,
     DoughnutChartComponent,
     ScatterChartComponent,
-    PolarAreaChartComponent
+    PolarAreaChartComponent,
+    RawDataTableComponent
   ],
   imports: [
     BrowserModule,
