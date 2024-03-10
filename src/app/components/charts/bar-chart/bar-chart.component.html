@@ -1,19 +1,19 @@
 <div *ngIf="hideDropdown == false">
-<select (change)="onChangeSelectColumn($event, 0)" [(ngModel)]="column1">
+<select (change)="onChangeSelectColumn($event, 0)" [(ngModel)]="column1" class="chart-select">
         <option [value]="''" selected> Select labels </option>
         <option *ngFor="let col of columns" [value]="col">{{ col }}</option>
 </select>
       
-<select (change)="onChangeSelectColumn($event, 1)" [(ngModel)]="column2">
+<select (change)="onChangeSelectColumn($event, 1)" [(ngModel)]="column2" class="chart-select">
         <option [value]="''" selected> Select Column 1 </option>
         <option *ngFor="let col of columns" [value]="col">{{ col }}</option>
 </select>
-<select (change)="onChangeSelectColumn($event, 2)" [(ngModel)]="sortType">
-        <option [value]="0">Select Sort Type</option>
+<select (change)="onChangeSelectColumn($event, 2)" [(ngModel)]="sortType" class="chart-select">
+        <option [value]="0">No sort</option>
         <option [value]="1">Ascending</option>
         <option [value]="-1">Descending</option>
       </select>
-      <select (change)="onChangeSelectColumn($event, 3)" [(ngModel)]="trimRecords">
+      <select (change)="onChangeSelectColumn($event, 3)" [(ngModel)]="trimRecords" class="chart-select">
         <option [value]="0">Select All</option>
         <option [value]="3">Show top 3</option>
         <option [value]="5">Show top 5</option>

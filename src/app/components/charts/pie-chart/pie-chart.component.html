@@ -1,22 +1,22 @@
 <div *ngIf="hideDropdown == false">
-  <select (change)="onChangeLineGraphSelectedColumns($event, 0)">
+  <select (change)="onChangeLineGraphSelectedColumns($event, 0)" class="chart-select">
     <option [value]="">Select X-Axis</option>
     <option *ngFor="let col of columns" [value]="col">
       {{ col }}
     </option>
   </select>
-  <select (change)="onChangeLineGraphSelectedColumns($event, 1)">
+  <select (change)="onChangeLineGraphSelectedColumns($event, 1)" class="chart-select">
     <option [value]="">Select X-Axis</option>
     <option *ngFor="let col of columns" [value]="col">
       {{ col }}
     </option>
   </select>
-  <select (change)="onChangeLineGraphSelectedColumns($event, 2)" [(ngModel)]="sortType">
+  <select (change)="onChangeLineGraphSelectedColumns($event, 2)" [(ngModel)]="sortType" class="chart-select">
     <option [value]="0">No Sort</option>
     <option [value]="1">Ascending</option>
     <option [value]="-1">Descending</option>
   </select>
-  <select (change)="onChangeLineGraphSelectedColumns($event, 3)" [(ngModel)]="trimRecords">
+  <select (change)="onChangeLineGraphSelectedColumns($event, 3)" [(ngModel)]="trimRecords" class="chart-select">
     <option [value]="0">Select All</option>
     <option [value]="3">Show top 3</option>
     <option [value]="5">Show top 5</option>
