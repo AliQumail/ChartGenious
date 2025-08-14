@@ -1,0 +1,25 @@
+<div style="padding: 2rem; max-width: 600px; margin: auto;">
+  <h1 style="text-align: center;">🤝 Collaborator(s) </h1>
+
+  <ul style="list-style: none; padding: 0; margin-top: 2rem;">
+    <li *ngFor="let collaborator of collaborators" style="margin-bottom: 1rem;">
+      <a
+        [href]="collaborator.github"
+        target="_blank"
+        rel="noopener noreferrer"
+        style="
+          display: block;
+          padding: 1rem;
+          text-align: center;
+          border-radius: 8px;
+          text-decoration: none;
+          color: #007bff;
+          font-weight: 500;
+          transition: background 0.2s;
+        "
+      >
+        {{ collaborator.name }}
+      </a>
+    </li>
+  </ul>
+</div>

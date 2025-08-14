@@ -30,6 +30,7 @@ import { RawDataTableComponent } from './components/raw-data-table/raw-data-tabl
 import { UserGuideComponent } from './components/user-guide/user-guide.component';
 import { HeaderComponent } from './components/shared/header/header.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
+import { CollaboratorsComponent } from './components/collaborators/collaborators.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,6 +46,7 @@ import { FooterComponent } from './components/shared/footer/footer.component';
     UserGuideComponent,
     HeaderComponent,
     FooterComponent,
+    CollaboratorsComponent,
   ],
   imports: [
     BrowserModule,
