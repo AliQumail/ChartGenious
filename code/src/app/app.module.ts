@@ -27,6 +27,9 @@ import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { RawDataTableComponent } from './components/raw-data-table/raw-data-table.component';
+import { UserGuideComponent } from './components/user-guide/user-guide.component';
+import { HeaderComponent } from './components/shared/header/header.component';
+import { FooterComponent } from './components/shared/footer/footer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +41,10 @@ import { RawDataTableComponent } from './components/raw-data-table/raw-data-tabl
     DoughnutChartComponent,
     ScatterChartComponent,
     PolarAreaChartComponent,
-    RawDataTableComponent
+    RawDataTableComponent,
+    UserGuideComponent,
+    HeaderComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,10 +62,10 @@ import { RawDataTableComponent } from './components/raw-data-table/raw-data-tabl
     NzPageHeaderModule,
     NzDescriptionsModule,
     NzSpaceModule,
-    NzLayoutModule 
+    NzLayoutModule,
   ],
 
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
