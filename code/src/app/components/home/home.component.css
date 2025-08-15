@@ -1,41 +1,54 @@
-/* Custom File Input Styles */
 input[type="file"] {
-    display: none; /* Hide the default file input */
-  }
-  
-  .file-input-wrapper {
-    position: relative;
-    width: fit-content;
-  }
-  
-  .custom-file-input {
-    cursor: pointer;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  
-  .custom-file-input:hover {
-    background-color: #0056b3;
-  }
-  
-  .custom-file-input:active {
-    background-color: #004080;
-  }
-  
-  .custom-file-input:focus {
-    outline: none;
-  }
-  
-  .file-input-label {
-    font-size: 16px;
-    margin-left: 10px;
-  }
-  
-  /* Optional: Styling for the container div */
-  .file-input-container {
-    margin-top: 10px;
-  }
+  display: none;
+}
+
+.file-input-wrapper {
+  position: relative;
+  width: fit-content;
+}
+
+.custom-file-input {
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.custom-file-input:hover {
+  background-color: #0056b3;
+}
+
+.custom-file-input:active {
+  background-color: #004080;
+}
+
+.custom-file-input:focus {
+  outline: none;
+}
+
+.file-input-label {
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+
+.file-input-container {
+  margin-top: 10px;
+  display: flex;
+  align-items: center; 
+  gap: 10px;
+}
+
+.sample-file-btn {
+  cursor: pointer;
+  background-color: #7300ff;
+  color: #fff;
+  border: none;
+  padding: 9px 15px;
+  border-radius: 5px;
+  font-size: 15px;
+}
+

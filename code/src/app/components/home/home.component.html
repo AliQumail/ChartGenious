@@ -1,9 +1,9 @@
 <div>
-  <div nz-row style="padding: 5.5rem;">
+  <div nz-row style="padding: 5.5rem">
     <div nz-col nzSpan="14">
-      <div style="padding-top: 3rem;">
+      <div style="padding-top: 3rem">
         <h1>Welcome to ChartGenious!</h1>
-        <p style="font-style: italic; font-size: 1.3rem;">
+        <p style="font-style: italic; font-size: 1.3rem">
           the ultimate tool for turning data into visual insights! With an
           easy-to-use interface, choose from various chart types to create
           customized visualizations effortlessly. Say hello to clear, compelling
@@ -12,18 +12,24 @@
         </p>
 
         <div class="file-input-container">
-            <div class="file-input-wrapper">
-              <label for="fileInput" class="custom-file-input">Choose File</label>
-              <input
-                type="file"
-                id="fileInput"
-                class="hidden-input"
-                (change)="onFileChange($event)"
-                accept=".xlsx, .xls, .csv"
-              />
-            </div>
+          <div class="file-input-wrapper">
+            <label for="fileInput" class="custom-file-input">Choose File</label>
+
+            <input
+              type="file"
+              id="fileInput"
+              class="hidden-input"
+              (change)="onFileChange($event)"
+              accept=".xlsx, .xls, .csv"
+            />
           </div>
-          
+        
+
+          <button class="sample-file-btn" (click)="loadSampleFile()">
+            Use Sample Data
+          </button>
+        </div>
+
         <!-- Add more text or content here -->
       </div>
     </div>

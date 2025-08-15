@@ -5,10 +5,10 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
   onFileChange(event: any) {
     const file = event.target.files[0];
     if (file) {
@@ -20,9 +20,20 @@ export class HomeComponent {
         const worksheet = workbook.Sheets[sheetName];
         const excelData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
         this.router.navigate(['/dashboard'], { state: { excelData } });
-      
       };
       reader.readAsArrayBuffer(file);
     }
+  }
+
+  loadSampleFile() {
+    const sampleFilePath = 'assets/countries.csv';
+
+    fetch(sampleFilePath)
+      .then((response) => response.blob())
+      .then((blob) => {
+        const file = new File([blob], 'sample-data.xlsx', { type: blob.type });
+        const mockEvent = { target: { files: [file] } };
+        this.onFileChange(mockEvent);
+      })
   }
 }
