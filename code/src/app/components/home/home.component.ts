@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { Router } from '@angular/router';
+import { APP_TITLE } from 'src/app/core/constants/app-constants';
 
 @Component({
   selector: 'app-home',
@@ -8,6 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
+  APP_TITLE = APP_TITLE
   constructor(private router: Router) {}
   onFileChange(event: any) {
     const file = event.target.files[0];

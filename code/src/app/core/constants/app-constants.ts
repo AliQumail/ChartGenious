@@ -1,1 +1,1 @@
-export const title = 'InstantCharts'
+export const APP_TITLE = 'ChartGenious'
