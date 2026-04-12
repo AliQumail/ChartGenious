@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ChartConfiguration, ChartOptions, ChartType } from "chart.js";
 import { ChangeDetectorRef } from '@angular/core';
-import { faXmark, faPrint, fa2, fa3 } from '@fortawesome/free-solid-svg-icons';
-import {faEye} from "@fortawesome/free-regular-svg-icons"; 
-import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { faXmark, faPrint, fa2, fa3, faTrash, faDownload, faUpload } from '@fortawesome/free-solid-svg-icons';
+import {faEye} from "@fortawesome/free-regular-svg-icons";
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,12 +18,16 @@ export class DashboardComponent implements OnInit {
   section : number = 1;
   chartSize = "325";
   hideDropdown: boolean = false; 
+  sidebarCollapsed = false;
 
   faXmark = faXmark;
   faEye = faEye;
   faPrint = faPrint;
   fa2 = fa2; 
   fa3 = fa3;
+  faTrash = faTrash;
+  faDownload = faDownload;
+  faUpload = faUpload;
 
   showRawData: boolean = true;
 
@@ -69,7 +73,8 @@ export class DashboardComponent implements OnInit {
   displayCharts : string[] = [];
   
   constructor(private route: ActivatedRoute,
-    private cdr: ChangeDetectorRef) {}
+    private cdr: ChangeDetectorRef,
+    private modal: NzModalService) {}
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       const data = history.state.excelData;
@@ -184,13 +189,65 @@ export class DashboardComponent implements OnInit {
     this.displayCharts.splice(idx, 1);
   }
 
-  // onPrint(divName: string){
-  //    const printContents: any = document.getElementById(divName)?.innerHTML;
-  //    const originalContents = document.body.innerHTML;
-  //    document.body.innerHTML = printContents;
-  //    window.print();
-  //    document.body.innerHTML = originalContents;
-  // }
+  onPrint() {
+    window.print();
+  }
 
- 
+  onReset() {
+    this.modal.confirm({
+      nzTitle: 'Clear workspace?',
+      nzContent: 'All charts will be removed from the workspace. This cannot be undone.',
+      nzOkText: 'Clear all',
+      nzOkDanger: true,
+      nzCancelText: 'Cancel',
+      nzOnOk: () => {
+        this.displayCharts = [];
+        this.selectChartCount = { line: 0, pie: 0, scatter: 0, bar: 0, doughnut: 0, polar: 0 };
+        this.showRawData = true;
+        this.cdr.markForCheck();
+      }
+    });
+  }
+
+  onExportConfig() {
+    const payload = {
+      version: 1,
+      charts: this.displayCharts,
+      exportedAt: new Date().toISOString()
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'chartgenious-config.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  onImportFile(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (!input.files?.length) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const payload = JSON.parse(e.target?.result as string);
+        if (payload.version === 1 && Array.isArray(payload.charts)) {
+          this.displayCharts = [...payload.charts];
+          this.selectChartCount = { line: 0, pie: 0, scatter: 0, bar: 0, doughnut: 0, polar: 0 };
+          payload.charts.forEach((chart: string) => {
+            if (chart in this.selectChartCount) (this.selectChartCount as any)[chart]++;
+          });
+          this.showRawData = false;
+          this.cdr.markForCheck();
+        } else {
+          this.modal.error({ nzTitle: 'Import failed', nzContent: 'Invalid or unsupported config file.' });
+        }
+      } catch {
+        this.modal.error({ nzTitle: 'Import failed', nzContent: 'The file could not be parsed.' });
+      }
+      input.value = '';
+    };
+    reader.readAsText(input.files[0]);
+  }
+  
 }

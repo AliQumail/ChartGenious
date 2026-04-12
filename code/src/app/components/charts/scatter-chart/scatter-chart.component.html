@@ -1,28 +1,47 @@
-<div *ngIf="hideDropdown == false">
-<select (change)="onChangeSelectColumn($event, 0)" [(ngModel)]="column1" class="chart-select">
-        <option [value]='""' selected> Select X-Axis </option>
-        <option *ngFor="let col of columns" [value]="col">{{ col }}</option>
-</select>
-      
-<select (change)="onChangeSelectColumn($event, 1)" [(ngModel)]="column2" class="chart-select">
-        <option [value]='""' selected> Select Y-Axis </option>
-        <option *ngFor="let col of columns" [value]="col">{{ col }}</option>
-</select>
-<select (change)="onChangeSelectColumn($event, 2)" [(ngModel)]="sortType" class="chart-select">
-        <option [value]="0">No sort</option>
-        <option [value]="1">Ascending</option>
-        <option [value]="-1">Descending</option>
-      </select>
-      <select (change)="onChangeSelectColumn($event, 3)" [(ngModel)]="trimRecords" class="chart-select">
-        <option [value]="0">Show all</option>
-        <option [value]="3">Show top 3</option>
-        <option [value]="5">Show top 5</option>
-        <option [value]="10">Show top 10</option>
-      </select>
+<!-- Scatter chart extra style controls -->
+<ng-template #scatterExtraControls>
+  <div class="ctrl-field ctrl-field-row">
+    <span class="ctrl-field-label">Point Color</span>
+    <input type="color" [(ngModel)]="pointColor" (ngModelChange)="rebuildChart()" class="ctrl-color">
+  </div>
+  <div class="ctrl-field ctrl-field-row">
+    <span class="ctrl-field-label">Point Size</span>
+    <select [(ngModel)]="pointSize" (ngModelChange)="rebuildChart()" class="ctrl-select" style="width:80px">
+      <option [ngValue]="4">Small</option>
+      <option [ngValue]="8">Medium</option>
+      <option [ngValue]="12">Large</option>
+    </select>
+  </div>
+</ng-template>
+
+<!-- Thumbnail -->
+<div class="chart-thumb" [class.clickable]="!hideDropdown" (click)="!hideDropdown && openModal()">
+  <canvas baseChart [width]="chartSize" [height]="chartSize"
+    [datasets]="scatterChartDatasets" [options]="scatterChartOptions" [type]="'scatter'"></canvas>
+  <div *ngIf="!hideDropdown" class="thumb-hint">Click to configure</div>
 </div>
 
-<canvas baseChart [width]="chartSize" [height]="chartSize"
-        [datasets]="scatterChartDatasets"
-        [options]="scatterChartOptions"
-        [type]="'scatter'">
-</canvas>
+<!-- Modal -->
+<app-chart-config-modal *ngIf="modalOpen"
+  heading="Configure Scatter Chart"
+  [columns]="columns"
+  col1Label="X-Axis Column"
+  col2Label="Y-Axis Column"
+  col1Placeholder="Select X-Axis"
+  col2Placeholder="Select Y-Axis"
+  [(column1)]="column1"
+  [(column2)]="column2"
+  [(sortType)]="sortType"
+  [(trimRecords)]="trimRecords"
+  [(chartTitle)]="chartTitle"
+  [hasAxisLabels]="true"
+  [(xAxisLabel)]="xAxisLabel"
+  [(yAxisLabel)]="yAxisLabel"
+  [hasLegend]="false"
+  [extraControlsTemplate]="scatterExtraControls"
+  (closed)="closeModal()"
+  (configChanged)="rebuildChart()"
+>
+  <canvas preview baseChart width="520" height="380"
+    [datasets]="scatterChartDatasets" [options]="scatterChartOptions" [type]="'scatter'"></canvas>
+</app-chart-config-modal>

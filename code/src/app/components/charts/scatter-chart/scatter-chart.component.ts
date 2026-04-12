@@ -15,9 +15,18 @@ export class ScatterChartComponent {
   @Input() columns: string[] = [];
   @Input() hideDropdown: boolean = false;
 
+  // Modal state
+  modalOpen = false;
+
+  // Config
+  chartTitle = '';
+  xAxisLabel = '';
+  yAxisLabel = '';
+  pointColor = '#C4862A';
+  pointSize = 8;
+
   column1: string = "";
   column2: string = ""; 
-
 
   public scatterChartDatasets: ChartConfiguration<'scatter'>['data']['datasets'] = [
     {
@@ -29,7 +38,8 @@ export class ScatterChartComponent {
         { x: 5, y: -3},
       ],
       label: 'Series A',
-      pointRadius: 10,
+      pointRadius: 8,
+      pointBackgroundColor: '#C4862A',
     },
   ];
 
@@ -37,43 +47,51 @@ export class ScatterChartComponent {
     responsive: false,
   };
 
-  sortType: number = 0; // No sort is 0, ascending is 1, descending in -1 
+  sortType: number = 0;
   trimRecords = 0; 
   newLength = 0; 
-  // Column 1 denotes X axis & Column 2 y axis 
+
+  openModal() { this.modalOpen = true; }
+  closeModal() { this.modalOpen = false; }
+
   onChangeSelectColumn(event: any, dropdownNo: number){
     let value = event.target.value; 
     if (dropdownNo == 0) this.column1 = value;
     else if (dropdownNo == 1) this.column2 = value;
     else if (dropdownNo == 2) this.sortType = value;
     else if (dropdownNo == 3) this.trimRecords = value;
-    let data : any[] = [];
-    let tempData = this.data;
-    if (this.column1 != '' && this.column2 != ''){
-      tempData = this.sortData(tempData, this.sortType, this.column2);
-      if (this.trimRecords == 0) {
-        this.newLength = this.data.length; 
-      } else {
-        this.newLength = this.trimRecords;
-      }
-      
-      tempData.map( (row: any) => {
-        data.push({x: row[this.column1], y: row[this.column2]})
+    this.rebuildChart();
+  }
+
+  rebuildChart() {
+    if (this.column1 != '' && this.column2 != '') {
+      let tempData = this.sortData([...this.data], this.sortType, this.column2);
+      const len = this.trimRecords == 0 ? this.data.length : this.trimRecords;
+      this.newLength = len;
+
+      let scatterData: any[] = [];
+      tempData.slice(0, len).forEach((row: any) => {
+        scatterData.push({ x: row[this.column1], y: row[this.column2] });
       });
 
-      console.log(data);
-      
-   
-    let results = [
-      {
-        data: data,
-        label: 'Series A',
-        pointRadius: 10,
-      }
-    ]
-  
-    this.scatterChartDatasets = results;
+      this.scatterChartDatasets = [{
+        data: scatterData,
+        label: this.chartTitle || 'Series A',
+        pointRadius: this.pointSize,
+        pointBackgroundColor: this.pointColor,
+      }];
     }
+
+    this.scatterChartOptions = {
+      responsive: false,
+      plugins: {
+        title: { display: !!this.chartTitle, text: this.chartTitle, font: { family: "'DM Sans', sans-serif", size: 14 }, color: '#1A1A1A', padding: { bottom: 12 } },
+      },
+      scales: {
+        x: { title: { display: !!this.xAxisLabel, text: this.xAxisLabel, font: { family: "'DM Sans', sans-serif", size: 11 }, color: '#636363' } },
+        y: { title: { display: !!this.yAxisLabel, text: this.yAxisLabel, font: { family: "'DM Sans', sans-serif", size: 11 }, color: '#636363' } }
+      }
+    };
   }
 
   sortData(data: any, sortType: number, columnName: string){
@@ -82,7 +100,7 @@ export class ScatterChartComponent {
     } else if (sortType == -1) {
       data.sort( (a: any, b: any) => b[columnName] - a[columnName]);
     } else {
-      data = this.data; 
+      data = [...this.data]; 
     }
     return data; 
   }

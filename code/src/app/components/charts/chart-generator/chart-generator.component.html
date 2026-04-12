@@ -1,0 +1,29 @@
+<div class="chart-card">
+  <div class="icon-buttons">
+    <button class="icon-btn configure" title="Configure" (click)="onConfigure()">⚙️ Configure</button>
+    <button class="icon-btn remove" title="Remove"(click)="onRemove()">❌ Remove</button>
+  </div>
+  <div *ngIf="hideDropdown == false">
+    <canvas
+      baseChart
+      [width]="chartSize"
+      [height]="chartSize"
+      [type]="'line'"
+      [data]="lineChartData"
+      [options]="lineChartOptions"
+      [legend]="lineChartLegend"
+    >
+    </canvas>
+  </div>
+</div>
+
+
+
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Configure Chart"aa
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+>
+  <p>Here you can configure your chart settings...</p>
+</nz-modal>

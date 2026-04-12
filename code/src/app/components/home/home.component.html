@@ -1,20 +1,22 @@
-<div>
-  <div nz-row style="padding: 5.5rem">
-    <div nz-col nzSpan="14">
-      <div style="padding-top: 3rem">
-        <h1>Welcome to {{ APP_TITLE }}!</h1>
-        <p style="font-style: italic; font-size: 1.3rem">
-          the ultimate tool for turning data into visual insights! With an
-          easy-to-use interface, choose from various chart types to create
-          customized visualizations effortlessly. Say hello to clear, compelling
-          insights in just a few clicks. Start charting your data journey with
-          ChartGenious today!
+<div class="home-root">
+
+  <!-- ===== HERO ===== -->
+  <section class="hero-section">
+    <div class="hero-eyebrow">Data Visualization Tool</div>
+
+    <div class="hero-grid">
+      <!-- Left: brand + CTAs -->
+      <div class="hero-text">
+        <h1 class="hero-brand">
+          <em class="brand-word-chart">Chart</em><span class="brand-word-genious">Genious</span>
+        </h1>
+        <p class="hero-desc">
+          Turn raw spreadsheets into visual intelligence. Upload your data,
+          configure your charts, and uncover insights — all in a single workspace.
         </p>
-
-        <div class="file-input-container">
+        <div class="cta-row">
           <div class="file-input-wrapper">
-            <label for="fileInput" class="custom-file-input">Choose File</label>
-
+            <label for="fileInput" class="btn-primary">Upload Spreadsheet</label>
             <input
               type="file"
               id="fileInput"
@@ -23,20 +25,42 @@
               accept=".xlsx, .xls, .csv"
             />
           </div>
-        
-
-          <button class="sample-file-btn" (click)="loadSampleFile()">
-            Use Sample Data
-          </button>
+          <button class="btn-ghost" (click)="loadSampleFile()">Try sample data &rarr;</button>
         </div>
+        <p class="cta-hint">Accepts .xlsx &middot; .xls &middot; .csv</p>
+      </div>
 
-        <!-- Add more text or content here -->
+      <!-- Right: image -->
+      <div class="hero-visual">
+        <div class="hero-image-frame">
+          <img src="assets/home.png" alt="{{ APP_TITLE }} preview" class="hero-image" />
+        </div>
+        <div class="hero-accent-line"></div>
       </div>
     </div>
-    <div nz-col nzSpan="10">
-      <div class="landing-image">
-        <img src="assets/home.png" alt="Image Description" width="500px" />
-      </div>
+  </section>
+
+  <!-- ===== FEATURE STRIP ===== -->
+  <section class="feature-strip">
+    <div class="feature-item">
+      <span class="feature-value">6</span>
+      <span class="feature-label">Chart Types</span>
     </div>
-  </div>
+    <div class="feature-sep"></div>
+    <div class="feature-item">
+      <span class="feature-value">CSV &amp; Excel</span>
+      <span class="feature-label">Input Formats</span>
+    </div>
+    <div class="feature-sep"></div>
+    <div class="feature-item">
+      <span class="feature-value">Zero</span>
+      <span class="feature-label">Setup Required</span>
+    </div>
+    <div class="feature-sep"></div>
+    <div class="feature-item">
+      <span class="feature-value">Print</span>
+      <span class="feature-label">Export Ready</span>
+    </div>
+  </section>
+
 </div>

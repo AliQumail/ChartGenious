@@ -1,4 +1,357 @@
-/* You can add global styles to this file, and also import other style files */
-.chart-select{
-    width: 180px
+/* ==========================================================
+   DESIGN TOKENS
+========================================================== */
+:root {
+  --color-bg: #FAFAF8;
+  --color-surface: #FFFFFF;
+  --color-text-primary: #1A1A1A;
+  --color-text-secondary: #636363;
+  --color-text-muted: #A0A0A0;
+  --color-accent: #C4862A;
+  --color-accent-hover: #a86d1a;
+  --color-accent-subtle: rgba(196, 134, 42, 0.08);
+  --color-border: #E8E2D6;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-card-hover: 0 8px 24px rgba(0,0,0,0.09), 0 2px 6px rgba(0,0,0,0.05);
 }
+
+/* ==========================================================
+   BASE RESET
+========================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================
+   GLOBAL CHART SELECT
+========================================================== */
+.chart-select {
+  width: 160px;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  outline: none;
+  cursor: pointer;
+  border-radius: 0;
+  transition: border-color 0.2s ease;
+}
+.chart-select:hover,
+.chart-select:focus { border-color: var(--color-accent); }
+
+/* ==========================================================
+   NG-ZORRO GLOBAL OVERRIDES
+   (applied globally to pierce Angular encapsulation)
+========================================================== */
+
+/* — Sider — */
+.ant-layout-sider {
+  background: var(--color-surface) !important;
+  border-right: 1px solid var(--color-border) !important;
+  box-shadow: none !important;
+}
+
+/* — Menu shell — */
+.ant-menu-inline,
+.ant-menu-vertical { border-right: none !important; }
+
+/* — Submenu titles (section headers) — */
+.ant-menu-submenu-title {
+  font-family: var(--font-body) !important;
+  font-size: 0.68rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  color: var(--color-text-muted) !important;
+}
+.ant-menu-submenu-title .anticon { color: var(--color-text-muted) !important; }
+.ant-menu-submenu-arrow { color: var(--color-text-muted) !important; }
+
+/* — Menu items — */
+.ant-menu-item {
+  font-family: var(--font-body) !important;
+  font-size: 0.84rem !important;
+  color: var(--color-text-secondary) !important;
+  border-radius: 0 !important;
+  transition: color 0.15s ease, background-color 0.15s ease !important;
+}
+.ant-menu-item:hover,
+.ant-menu-item-active {
+  color: var(--color-accent) !important;
+  background-color: var(--color-accent-subtle) !important;
+}
+.ant-menu-item-selected {
+  color: var(--color-accent) !important;
+  background-color: var(--color-accent-subtle) !important;
+  font-weight: 500 !important;
+}
+.ant-menu-item-selected::after {
+  border-right: 2px solid var(--color-accent) !important;
+}
+
+/* — Badge — */
+.ant-badge-count {
+  background-color: var(--color-accent) !important;
+  box-shadow: none !important;
+  font-family: var(--font-body) !important;
+  font-size: 0.68rem !important;
+  border-radius: 2px !important;
+  min-width: 18px !important;
+  height: 18px !important;
+  line-height: 18px !important;
+  padding: 0 5px !important;
+}
+
+/* — Data Table — */
+.ant-table {
+  font-family: var(--font-body) !important;
+  font-size: 0.84rem !important;
+  border-radius: 0 !important;
+  background: var(--color-surface) !important;
+}
+.ant-table-thead > tr > th {
+  background: var(--color-bg) !important;
+  border-bottom: 1px solid var(--color-border) !important;
+  color: var(--color-text-muted) !important;
+  font-size: 0.68rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  padding: 10px 14px !important;
+}
+.ant-table-tbody > tr > td {
+  border-bottom: 1px solid var(--color-border) !important;
+  padding: 10px 14px !important;
+  color: var(--color-text-primary) !important;
+}
+.ant-table-tbody > tr:hover > td {
+  background: var(--color-accent-subtle) !important;
+}
+.ant-pagination-item-active {
+  border-color: var(--color-accent) !important;
+}
+.ant-pagination-item-active a { color: var(--color-accent) !important; }
+
+/* ==========================================================
+   CHART MODAL — shared across all chart components
+========================================================== */
+
+/* Thumbnail wrapper */
+.chart-thumb { position: relative; }
+.chart-thumb.clickable { cursor: pointer; }
+.chart-thumb.clickable:hover .thumb-hint { opacity: 1; }
+
+.thumb-hint {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding: 3px 10px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* Backdrop */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 1000;
+}
+
+/* Panel */
+.modal-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.18), 0 8px 20px rgba(0, 0, 0, 0.08);
+  width: 92vw;
+  max-width: 960px;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Header */
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+.modal-heading {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  letter-spacing: -0.01em;
+}
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: 0 4px;
+  transition: color 0.15s ease;
+}
+.modal-close:hover { color: var(--color-text-primary); }
+
+/* Body: two-panel */
+.modal-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+.modal-preview {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: var(--color-bg);
+  border-right: 1px solid var(--color-border);
+  overflow: auto;
+}
+.modal-controls {
+  width: 290px;
+  flex-shrink: 0;
+  overflow-y: auto;
+  padding: 1.25rem 1.5rem;
+}
+
+/* Control sections */
+.ctrl-section {
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--color-border);
+}
+.ctrl-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+.ctrl-label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 0.75rem;
+}
+.ctrl-field { margin-bottom: 0.65rem; }
+.ctrl-field:last-child { margin-bottom: 0; }
+
+.ctrl-field-label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.3rem;
+}
+.ctrl-field-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ctrl-field-row .ctrl-field-label { margin-bottom: 0; }
+
+/* Select */
+.ctrl-select {
+  display: block;
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  outline: none;
+  cursor: pointer;
+  border-radius: 0;
+  transition: border-color 0.2s ease;
+}
+.ctrl-select:hover, .ctrl-select:focus { border-color: var(--color-accent); }
+
+/* Input */
+.ctrl-input {
+  display: block;
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  outline: none;
+  border-radius: 0;
+  transition: border-color 0.2s ease;
+}
+.ctrl-input:hover, .ctrl-input:focus { border-color: var(--color-accent); }
+.ctrl-input::placeholder { color: var(--color-text-muted); }
+
+/* Color picker */
+.ctrl-color {
+  width: 32px;
+  height: 24px;
+  border: 1px solid var(--color-border);
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  border-radius: 0;
+}
+.ctrl-color::-webkit-color-swatch-wrapper { padding: 2px; }
+.ctrl-color::-webkit-color-swatch { border: none; }
+
+/* Toggle switch */
+.ctrl-toggle { position: relative; display: inline-flex; cursor: pointer; }
+.ctrl-toggle input { position: absolute; opacity: 0; width: 0; height: 0; }
+.toggle-track {
+  display: inline-block;
+  width: 34px;
+  height: 18px;
+  background: var(--color-border);
+  border-radius: 9px;
+  position: relative;
+  transition: background-color 0.2s ease;
+}
+.toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  background: var(--color-surface);
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease;
+}
+.ctrl-toggle input:checked + .toggle-track { background: var(--color-accent); }
+.ctrl-toggle input:checked + .toggle-track .toggle-thumb { transform: translateX(16px); }

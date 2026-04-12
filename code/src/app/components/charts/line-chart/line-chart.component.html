@@ -1,36 +1,56 @@
-<div *ngIf="hideDropdown == false">
-  <select (change)="onSelectDropdown($event, 0)" [(ngModel)]="selectedCol1" class="chart-select">
-    <option [value]="''">Select X-Axis</option>
-    <option *ngFor="let col of columns" [value]="col">
-      {{ col }}
-    </option>
-  </select>
-  <select (change)="onSelectDropdown($event, 1)" [(ngModel)]="selectedCol2" class="chart-select">
-    <option [value]="''">Select Y-Axis</option>
-    <option *ngFor="let col of columns" [value]="col">
-      {{ col }}
-    </option>
-  </select>
-  
-  <select (change)="onSelectDropdown($event, 2)" [(ngModel)]="sortType" class="chart-select"> 
-    <option [value]="0">No sort</option>
-    <option [value]="1">Ascending</option>
-    <option [value]="-1">Descending</option>
-  </select>
-  <select (change)="onSelectDropdown($event, 3)" [(ngModel)]="trimRecords" class="chart-select">
-    <option [value]="0">Select All</option>
-    <option [value]="3">Show top 3</option>
-    <option [value]="5">Show top 5</option>
-    <option [value]="10">Show top 10</option>
-  </select>
+<!-- Line chart extra style controls -->
+<ng-template #lineExtraControls>
+  <div class="ctrl-field ctrl-field-row">
+    <span class="ctrl-field-label">Line Color</span>
+    <input type="color" [(ngModel)]="lineColor" (ngModelChange)="rebuildChart()" class="ctrl-color">
+  </div>
+  <div class="ctrl-field ctrl-field-row">
+    <span class="ctrl-field-label">Show Data Points</span>
+    <label class="ctrl-toggle">
+      <input type="checkbox" [(ngModel)]="showDataPoints" (ngModelChange)="rebuildChart()">
+      <span class="toggle-track"><span class="toggle-thumb"></span></span>
+    </label>
+  </div>
+  <div class="ctrl-field ctrl-field-row">
+    <span class="ctrl-field-label">Fill Area</span>
+    <label class="ctrl-toggle">
+      <input type="checkbox" [(ngModel)]="fillArea" (ngModelChange)="rebuildChart()">
+      <span class="toggle-track"><span class="toggle-thumb"></span></span>
+    </label>
+  </div>
+</ng-template>
+
+<!-- Thumbnail -->
+<div class="chart-thumb" [class.clickable]="!hideDropdown" (click)="!hideDropdown && openModal()">
+  <canvas baseChart [width]="chartSize" [height]="chartSize"
+    [type]="'line'" [data]="lineChartData" [options]="lineChartOptions"
+    [legend]="lineChartLegend"></canvas>
+  <div *ngIf="!hideDropdown" class="thumb-hint">Click to configure</div>
 </div>
-<canvas
-  baseChart
-  [width]="chartSize"
-  [height]="chartSize"
-  [type]="'line'"
-  [data]="lineChartData"
-  [options]="lineChartOptions"
-  [legend]="lineChartLegend"
+
+<!-- Modal -->
+<app-chart-config-modal *ngIf="modalOpen"
+  heading="Configure Line Chart"
+  [columns]="columns"
+  col1Label="X-Axis Column"
+  col2Label="Y-Axis Column"
+  col1Placeholder="Select X-Axis"
+  col2Placeholder="Select Y-Axis"
+  [(column1)]="selectedCol1"
+  [(column2)]="selectedCol2"
+  [(sortType)]="sortType"
+  [(trimRecords)]="trimRecords"
+  [(chartTitle)]="chartTitle"
+  [hasAxisLabels]="true"
+  [(xAxisLabel)]="xAxisLabel"
+  [(yAxisLabel)]="yAxisLabel"
+  [hasLegend]="true"
+  [(showLegend)]="showLegend"
+  [extraControlsTemplate]="lineExtraControls"
+  (closed)="closeModal()"
+  (configChanged)="rebuildChart()"
 >
-</canvas>
+  <canvas preview baseChart width="520" height="380"
+    [type]="'line'" [data]="lineChartData" [options]="lineChartOptions"
+    [legend]="lineChartLegend"></canvas>
+</app-chart-config-modal>

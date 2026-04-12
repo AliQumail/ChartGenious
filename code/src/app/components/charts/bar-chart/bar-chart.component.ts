@@ -14,16 +14,24 @@ export class BarChartComponent {
   @Input() data: any[] = [];
   @Input() hideDropdown: boolean = false;
 
-  
- chartHeight = GlobalConstants.CHART_HEIGHT;
- chartWidth = GlobalConstants.CHART_WIDTH;
+  chartHeight = GlobalConstants.CHART_HEIGHT;
+  chartWidth = GlobalConstants.CHART_WIDTH;
 
- column1: string = ''; 
- column2: string = ''; 
- sortType: number = 0; // No sort is 0, ascending is 1, descending in -1 
- trimRecords = 0; 
- newLength = 0; 
+  // Modal state
+  modalOpen = false;
 
+  // Config
+  chartTitle = '';
+  xAxisLabel = '';
+  yAxisLabel = '';
+  barColor = '#C4862A';
+  showLegend = true;
+
+  column1: string = ''; 
+  column2: string = ''; 
+  sortType: number = 0;
+  trimRecords = 0; 
+  newLength = 0; 
 
   public barChartLegend = true;
   public barChartPlugins = [];
@@ -31,7 +39,7 @@ export class BarChartComponent {
   public barChartData: ChartConfiguration<'bar'>['data'] = {
     labels: [ '2006', '2007', '2008', '2009', '2010', '2011', '2012' ],
     datasets: [
-      { data: [ 65, 59, 80, 81, 56, 55, 40 ], label: 'Series A' },
+      { data: [ 65, 59, 80, 81, 56, 55, 40 ], label: 'Series A', backgroundColor: '#C4862A' },
     ]
   };
 
@@ -39,32 +47,46 @@ export class BarChartComponent {
     responsive: false,
   };
 
+  openModal() { this.modalOpen = true; }
+  closeModal() { this.modalOpen = false; }
+
   onChangeSelectColumn(event: any, dropdownNo: number){
     let value = event.target.value; 
     if (dropdownNo == 0) this.column1 = value;
     else if (dropdownNo == 1) this.column2 = value;
     else if (dropdownNo == 2) this.sortType = value;
     else if (dropdownNo == 3) this.trimRecords = value;
-   
-    let tempData = this.data; 
-    if (this.column1 != '' && this.column2 != ''){
-      tempData = this.sortData(tempData, this.sortType, this.column2);
-      if (this.trimRecords == 0) {
-        this.newLength = this.data.length; 
-      } else {
-        this.newLength = this.trimRecords;
-      }
-      let labels = tempData.slice(0, this.newLength).map( (d: any) => d[this.column1]);     
-      let datasets = [
-        { data: tempData.slice(0, this.newLength).map( (d: any) => d[this.column2]), 
-        },
-      ]
+    this.rebuildChart();
+  }
+
+  rebuildChart() {
+    if (this.column1 != '' && this.column2 != '') {
+      let tempData = this.sortData([...this.data], this.sortType, this.column2);
+      const len = this.trimRecords == 0 ? this.data.length : this.trimRecords;
+      this.newLength = len;
+
       this.barChartData = {
-        labels: labels,
-        datasets: datasets
+        labels: tempData.slice(0, len).map((d: any) => d[this.column1]),
+        datasets: [{
+          data: tempData.slice(0, len).map((d: any) => d[this.column2]),
+          label: this.chartTitle || 'Series A',
+          backgroundColor: this.barColor,
+        }]
       };
     }
-    
+
+    this.barChartOptions = {
+      responsive: false,
+      plugins: {
+        title: { display: !!this.chartTitle, text: this.chartTitle, font: { family: "'DM Sans', sans-serif", size: 14 }, color: '#1A1A1A', padding: { bottom: 12 } },
+        legend: { display: this.showLegend }
+      },
+      scales: {
+        x: { title: { display: !!this.xAxisLabel, text: this.xAxisLabel, font: { family: "'DM Sans', sans-serif", size: 11 }, color: '#636363' } },
+        y: { title: { display: !!this.yAxisLabel, text: this.yAxisLabel, font: { family: "'DM Sans', sans-serif", size: 11 }, color: '#636363' } }
+      }
+    };
+    this.barChartLegend = this.showLegend;
   }
 
   sortData(data: any, sortType: number, columnName: string){
@@ -73,9 +95,8 @@ export class BarChartComponent {
     } else if (sortType == -1) {
       data.sort( (a: any, b: any) => b[columnName] - a[columnName]);
     } else {
-      data = this.data; 
+      data = [...this.data]; 
     }
     return data; 
   }
-
 }

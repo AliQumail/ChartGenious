@@ -1,0 +1,81 @@
+<div class="modal-backdrop" (click)="close()"></div>
+<div class="modal-panel">
+  <div class="modal-header">
+    <span class="modal-heading">{{ heading }}</span>
+    <button class="modal-close" (click)="close()">&times;</button>
+  </div>
+  <div class="modal-body">
+    <!-- Left: live preview -->
+    <div class="modal-preview">
+      <ng-content select="[preview]"></ng-content>
+    </div>
+    <!-- Right: controls -->
+    <div class="modal-controls">
+      <!-- Data section -->
+      <div class="ctrl-section">
+        <label class="ctrl-label">Data</label>
+        <div class="ctrl-field">
+          <span class="ctrl-field-label">{{ col1Label }}</span>
+          <select [ngModel]="column1" (ngModelChange)="onColumn1Change($event)" class="ctrl-select">
+            <option [value]="''">{{ col1Placeholder }}</option>
+            <option *ngFor="let col of columns" [value]="col">{{ col }}</option>
+          </select>
+        </div>
+        <div class="ctrl-field">
+          <span class="ctrl-field-label">{{ col2Label }}</span>
+          <select [ngModel]="column2" (ngModelChange)="onColumn2Change($event)" class="ctrl-select">
+            <option [value]="''">{{ col2Placeholder }}</option>
+            <option *ngFor="let col of columns" [value]="col">{{ col }}</option>
+          </select>
+        </div>
+        <div class="ctrl-field">
+          <span class="ctrl-field-label">Sort</span>
+          <select [ngModel]="sortType" (ngModelChange)="onSortTypeChange($event)" class="ctrl-select">
+            <option [ngValue]="0">No sort</option>
+            <option [ngValue]="1">Ascending</option>
+            <option [ngValue]="-1">Descending</option>
+          </select>
+        </div>
+        <div class="ctrl-field">
+          <span class="ctrl-field-label">Records</span>
+          <select [ngModel]="trimRecords" (ngModelChange)="onTrimRecordsChange($event)" class="ctrl-select">
+            <option [ngValue]="0">All records</option>
+            <option [ngValue]="3">Top 3</option>
+            <option [ngValue]="5">Top 5</option>
+            <option [ngValue]="10">Top 10</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Labels section -->
+      <div class="ctrl-section">
+        <label class="ctrl-label">Labels</label>
+        <div class="ctrl-field">
+          <span class="ctrl-field-label">Chart Title</span>
+          <input type="text" [(ngModel)]="chartTitle" (blur)="onChartTitleBlur()" class="ctrl-input" placeholder="Untitled">
+        </div>
+        <div class="ctrl-field" *ngIf="hasAxisLabels">
+          <span class="ctrl-field-label">X-Axis Label</span>
+          <input type="text" [(ngModel)]="xAxisLabel" (blur)="onXAxisLabelBlur()" class="ctrl-input" placeholder="—">
+        </div>
+        <div class="ctrl-field" *ngIf="hasAxisLabels">
+          <span class="ctrl-field-label">Y-Axis Label</span>
+          <input type="text" [(ngModel)]="yAxisLabel" (blur)="onYAxisLabelBlur()" class="ctrl-input" placeholder="—">
+        </div>
+      </div>
+
+      <!-- Style section -->
+      <div class="ctrl-section">
+        <label class="ctrl-label">Style</label>
+        <ng-container *ngIf="extraControlsTemplate" [ngTemplateOutlet]="extraControlsTemplate"></ng-container>
+        <div class="ctrl-field ctrl-field-row" *ngIf="hasLegend">
+          <span class="ctrl-field-label">Show Legend</span>
+          <label class="ctrl-toggle">
+            <input type="checkbox" [ngModel]="showLegend" (ngModelChange)="onShowLegendChange($event)">
+            <span class="toggle-track"><span class="toggle-thumb"></span></span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

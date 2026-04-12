@@ -14,6 +14,18 @@ export class LineChartComponent {
 
   chartHeight = GlobalConstants.CHART_HEIGHT;
   chartWidth = GlobalConstants.CHART_WIDTH;
+
+  // Modal state
+  modalOpen = false;
+
+  // Config: new properties
+  chartTitle = '';
+  xAxisLabel = '';
+  yAxisLabel = '';
+  lineColor = '#C4862A';
+  showDataPoints = true;
+  fillArea = true;
+  showLegend = true;
   
    // Line graph
    selectedCol1: string = ""; 
@@ -36,8 +48,8 @@ export class LineChartComponent {
          label: 'Series A',
          fill: true,
          tension: 0.5,
-         borderColor: 'black',
-         backgroundColor: 'rgba(255,0,0,0.3)'
+         borderColor: '#C4862A',
+         backgroundColor: 'rgba(196, 134, 42, 0.15)'
        }
      ]
    };
@@ -48,37 +60,85 @@ export class LineChartComponent {
 
   trimRecords = 0; 
   newLength = 0; 
+
+  openModal() { this.modalOpen = true; }
+  closeModal() { this.modalOpen = false; }
+
   onSelectDropdown(event: any, dropdownNo: number){
     let value = event.target.value;
     if (dropdownNo == 0)  this.selectedCol1 = value; 
     else if (dropdownNo == 1) this.selectedCol2 = value; 
     else if (dropdownNo == 2) this.sortType = value;
     else if (dropdownNo == 3) this.trimRecords = value;
+    this.rebuildChart();
+  }
 
-    let tempData = this.data; 
-    if (this.selectedCol1 != '' && this.selectedCol2 != ''){
-      tempData = this.sortData(tempData, this.sortType, this.selectedCol2);
-      if (this.trimRecords == 0) {
-        this.newLength = this.data.length; 
-      } else {
-        this.newLength = this.trimRecords;
-      }
-      let labels = tempData.slice(0, this.newLength).map( (d: any) => d[this.selectedCol1]);
-      let datasets = [
-      {
-        data: tempData.slice(0, this.newLength).map( (d: any) => d[this.selectedCol2]),
-        label: 'Series A',
-        fill: true,
-        tension: 0.5,
-        borderColor: 'black',
-        backgroundColor: 'rgba(255,0,0,0.3)'
-      }];
+  rebuildChart() {
+    if (this.selectedCol1 != '' && this.selectedCol2 != '') {
+      let tempData = this.sortData([...this.data], this.sortType, this.selectedCol2);
+      const len = this.trimRecords == 0 ? this.data.length : this.trimRecords;
+      this.newLength = len;
 
-      this.lineChartData = { 
+      const labels = tempData.slice(0, len).map((d: any) => d[this.selectedCol1]);
+      const bgColor = this.hexToRgba(this.lineColor, 0.15);
+
+      this.lineChartData = {
         labels: labels,
-        datasets: datasets
-      }
+        datasets: [{
+          data: tempData.slice(0, len).map((d: any) => d[this.selectedCol2]),
+          label: this.chartTitle || 'Series A',
+          fill: this.fillArea,
+          tension: 0.5,
+          borderColor: this.lineColor,
+          backgroundColor: bgColor,
+          pointRadius: this.showDataPoints ? 4 : 0,
+          pointHoverRadius: this.showDataPoints ? 6 : 0,
+        }]
+      };
     }
+
+    this.lineChartOptions = {
+      responsive: false,
+      plugins: {
+        title: {
+          display: !!this.chartTitle,
+          text: this.chartTitle,
+          font: { family: "'DM Sans', sans-serif", size: 14 },
+          color: '#1A1A1A',
+          padding: { bottom: 12 }
+        },
+        legend: {
+          display: this.showLegend
+        }
+      },
+      scales: {
+        x: {
+          title: {
+            display: !!this.xAxisLabel,
+            text: this.xAxisLabel,
+            font: { family: "'DM Sans', sans-serif", size: 11 },
+            color: '#636363'
+          }
+        },
+        y: {
+          title: {
+            display: !!this.yAxisLabel,
+            text: this.yAxisLabel,
+            font: { family: "'DM Sans', sans-serif", size: 11 },
+            color: '#636363'
+          }
+        }
+      }
+    };
+
+    this.lineChartLegend = this.showLegend;
+  }
+
+  hexToRgba(hex: string, alpha: number): string {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
   }
 
   sortData(data: any, sortType: number, columnName: string){
@@ -87,7 +147,7 @@ export class LineChartComponent {
     } else if (sortType == -1) {
       data.sort( (a: any, b: any) => b[columnName] - a[columnName]);
     } else {
-      data = this.data; 
+      data = [...this.data]; 
     }
     return data; 
   }

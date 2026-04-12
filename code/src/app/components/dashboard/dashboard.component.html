@@ -1,107 +1,141 @@
 <nz-layout class="layout">
-  <!-- SIDEBAR -->
-  <nz-sider [nzTheme]="'light'">
-    <!-- <h2 nz-typography style="padding-left: 1.5rem; padding-top: 1rem;">ChartGenious</h2> -->
-    <hr>
-    <ul nz-menu nzMode="inline" style="margin-top: 3rem;">
-      <li nz-submenu nzTitle="Data" nzIcon="mail" nzOpen>
+
+  <!-- ===== SIDEBAR ===== -->
+  <nz-sider [nzTheme]="'light'" class="sidebar"
+    [nzCollapsible]="true"
+    [(nzCollapsed)]="sidebarCollapsed"
+    [nzWidth]="200"
+    [nzCollapsedWidth]="64">
+    <ul nz-menu nzMode="inline" [nzInlineCollapsed]="sidebarCollapsed" class="sidebar-menu">
+
+      <li nz-submenu nzTitle="Data" nzIcon="table" nzOpen>
         <ul>
           <li nz-menu-item (click)="onClickViewRawData()">View raw data</li>
-        </ul> 
+        </ul>
       </li>
-      <li nz-submenu nzTitle="Graphs" nzIcon="appstore">
+
+      <li nz-submenu nzTitle="Add Chart" nzIcon="bar-chart">
         <ul>
-          <li nz-menu-item (click)="onClickChart('line')" class="menu-item"> 
-            Line chart  
-            <nz-badge [nzCount]="this.selectChartCount.line">
-              <a></a>
-            </nz-badge>
+          <li nz-menu-item (click)="onClickChart('line')" class="menu-item">
+            Line chart
+            <nz-badge [nzCount]="this.selectChartCount.line"><a></a></nz-badge>
           </li>
           <li nz-menu-item (click)="onClickChart('pie')" class="menu-item">
             Pie chart
-            <nz-badge [nzCount]="this.selectChartCount.pie">
-              <a></a>
-            </nz-badge>
+            <nz-badge [nzCount]="this.selectChartCount.pie"><a></a></nz-badge>
           </li>
           <li nz-menu-item (click)="onClickChart('bar')" class="menu-item">
             Bar chart
-            <nz-badge [nzCount]="this.selectChartCount.bar">
-              <a></a>
-            </nz-badge>
+            <nz-badge [nzCount]="this.selectChartCount.bar"><a></a></nz-badge>
           </li>
           <li nz-menu-item (click)="onClickChart('doughnut')" class="menu-item">
-             Doughnut chart
-            <nz-badge [nzCount]="this.selectChartCount.doughnut">
-              <a></a>
-            </nz-badge>
+            Doughnut chart
+            <nz-badge [nzCount]="this.selectChartCount.doughnut"><a></a></nz-badge>
           </li>
           <li nz-menu-item (click)="onClickChart('polar')" class="menu-item">
             Polar area chart
-            <nz-badge [nzCount]="this.selectChartCount.polar">
-              <a></a>
-            </nz-badge>
+            <nz-badge [nzCount]="this.selectChartCount.polar"><a></a></nz-badge>
           </li>
           <li nz-menu-item (click)="onClickChart('scatter')" class="menu-item">
             Scatter chart
-            <nz-badge [nzCount]="this.selectChartCount.scatter">
-              <a></a>
-            </nz-badge>
+            <nz-badge [nzCount]="this.selectChartCount.scatter"><a></a></nz-badge>
           </li>
         </ul>
       </li>
-      <!-- <li nz-submenu nzTitle="Download" nzIcon="setting">
-        <ul>
-          <li nz-menu-item>To PDF</li>
-          
-        </ul>
-      </li> -->
+
     </ul>
   </nz-sider>
 
-  <nz-layout class="right-layout">
+  <!-- ===== MAIN AREA ===== -->
+  <nz-layout class="right-layout" [class.right-layout--collapsed]="sidebarCollapsed">
     <nz-header></nz-header>
     <nz-content>
-      <div class="inner-content">  
-        <div *ngIf="showRawData == true" style="overflow-x: auto; max-width: 100%;">
+      <div class="inner-content">
+
+        <!-- Raw data table -->
+        <div *ngIf="showRawData == true" class="raw-data-wrapper">
           <app-raw-data-table [data]="data" [columns]="columns"></app-raw-data-table>
-        </div> 
-        <div *ngIf="!showRawData">
-      <!-- <button type="button"><fa-icon [icon]="faPrint"></fa-icon></button>  -->
-       <button type="button" (click)="onClickChangeView(2)"><fa-icon [icon]="fa2"></fa-icon></button>
-        <button type="button" (click)="onClickChangeView(3)"><fa-icon [icon]="fa3"></fa-icon></button>
-        <button type="button"  (click)="onHideBtnClick()"><fa-icon [icon]="faEye"></fa-icon></button> 
-     
-        
-      <div nz-row id="sectionToPrint">
-        <div *ngFor="let chart of displayCharts; let i = index" nz-col [nzSpan]="viewType" style="margin-top: 2.5rem;">
-          <button *ngIf="hideDropdown != true"  (click)="handleDelete(i)" class="delete-btn">
-            <fa-icon [icon]="faXmark"></fa-icon>
-          </button>
-          <!-- Select Controls -->
-          <!-- Select Controls -->
-          <div *ngIf="chart == 'line'">
-            <app-line-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-line-chart>
-          </div>
-          <div *ngIf="chart == 'pie'">
-            <app-pie-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-pie-chart>
-          </div>
-          <div *ngIf="chart == 'bar'">
-            <app-bar-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-bar-chart>
-          </div>
-          <div *ngIf="chart == 'doughnut'">
-            <app-doughnut-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-doughnut-chart>
-          </div>
-          <div *ngIf="chart == 'polar'">
-            <app-polar-area-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-polar-area-chart>
-          </div>
-          <div *ngIf="chart == 'scatter'">
-            <app-scatter-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-scatter-chart>
-          </div>
         </div>
-      </div> 
-      </div>
-      
+
+        <!-- Charts view -->
+        <div *ngIf="!showRawData">
+
+          <!-- Toolbar -->
+          <div class="toolbar">
+            <div class="toolbar-group">
+              <button type="button" class="tool-btn" (click)="onClickChangeView(2)" title="2-column view">
+                <fa-icon [icon]="fa2"></fa-icon>
+                <span>2 Col</span>
+              </button>
+              <button type="button" class="tool-btn" (click)="onClickChangeView(3)" title="3-column view">
+                <fa-icon [icon]="fa3"></fa-icon>
+                <span>3 Col</span>
+              </button>
+              <button type="button" class="tool-btn" (click)="onHideBtnClick()" title="Toggle configure buttons">
+                <fa-icon [icon]="faEye"></fa-icon>
+                <span>Toggle</span>
+              </button>
+            </div>
+            <div class="toolbar-divider"></div>
+            <div class="toolbar-group">
+              <button type="button" class="tool-btn" (click)="onExportConfig()" title="Export chart list as JSON">
+                <fa-icon [icon]="faDownload"></fa-icon>
+                <span>Export</span>
+              </button>
+              <label class="tool-btn" title="Import chart list from JSON">
+                <fa-icon [icon]="faUpload"></fa-icon>
+                <span>Import</span>
+                <input type="file" accept=".json" (change)="onImportFile($event)" style="display:none">
+              </label>
+              <button type="button" class="tool-btn" (click)="onPrint()" title="Print / Save as PDF">
+                <fa-icon [icon]="faPrint"></fa-icon>
+                <span>Print</span>
+              </button>
+              <button type="button" class="tool-btn tool-btn--danger" (click)="onReset()" title="Clear all charts">
+                <fa-icon [icon]="faTrash"></fa-icon>
+                <span>Reset</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Chart grid -->
+          <div nz-row id="sectionToPrint" class="chart-grid">
+            <div *ngFor="let chart of displayCharts; let i = index"
+                 nz-col [nzSpan]="viewType"
+                 class="chart-col">
+              <div class="chart-card">
+                <button *ngIf="hideDropdown != true"
+                        (click)="handleDelete(i)"
+                        class="delete-btn"
+                        title="Remove chart">
+                  <fa-icon [icon]="faXmark"></fa-icon>
+                </button>
+
+                <div *ngIf="chart == 'line'">
+                  <app-line-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-line-chart>
+                </div>
+                <div *ngIf="chart == 'pie'">
+                  <app-pie-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-pie-chart>
+                </div>
+                <div *ngIf="chart == 'bar'">
+                  <app-bar-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-bar-chart>
+                </div>
+                <div *ngIf="chart == 'doughnut'">
+                  <app-doughnut-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-doughnut-chart>
+                </div>
+                <div *ngIf="chart == 'polar'">
+                  <app-polar-area-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-polar-area-chart>
+                </div>
+                <div *ngIf="chart == 'scatter'">
+                  <app-scatter-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-scatter-chart>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
     </nz-content>
   </nz-layout>
+
 </nz-layout>

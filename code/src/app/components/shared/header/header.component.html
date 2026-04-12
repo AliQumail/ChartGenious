@@ -1,10 +1,8 @@
-
-<div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem;">
-    <h2 style="margin: 0;">{{ APP_TITLE }}</h2>
-    <div style="display: flex; gap: 1.5rem; font-size: 1.1rem;">
-        <a href="/home" style="text-decoration: none; color: black;">Home</a>
-        <a href="/user-guide" style="text-decoration: none; color: black;">Guide</a>
-        <a href="/collaborators" style="text-decoration: none; color: black;">Collaborators</a>
-        <a href="/settings" style="text-decoration: none; color: black;">Settings</a>
-    </div>
-</div>
+<header class="site-header">
+  <a href="/home" class="header-brand">{{ APP_TITLE }}</a>
+  <nav class="header-nav">
+    <a href="/home" class="nav-link">Home</a>
+    <a href="/user-guide" class="nav-link">Guide</a>
+    <a href="/collaborators" class="nav-link">Collaborators</a>
+  </nav>
+</header>

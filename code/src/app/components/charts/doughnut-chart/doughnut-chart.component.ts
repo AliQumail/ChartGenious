@@ -18,9 +18,16 @@ export class DoughnutChartComponent {
   chartHeight = GlobalConstants.CHART_HEIGHT;
   chartWidth = GlobalConstants.CHART_WIDTH;
 
+  // Modal state
+  modalOpen = false;
+
+  // Config
+  chartTitle = '';
+  showLegend = true;
+
   column1: string = ''; 
   column2: string = ''; 
-  sortType: number = 0; // No sort is 0, ascending is 1, descending in -1 
+  sortType: number = 0;
   trimRecords = 0; 
   newLength = 0; 
 
@@ -33,30 +40,37 @@ export class DoughnutChartComponent {
     responsive: false
   };
 
+  openModal() { this.modalOpen = true; }
+  closeModal() { this.modalOpen = false; }
+
   onChangeSelectColumn(event: any, columnNo: number){
     let value = event.target.value; 
     if (columnNo == 0) this.column1 = value;
     if (columnNo == 1) this.column2 = value;
+    if (columnNo == 2) this.sortType = value;
+    if (columnNo == 3) this.trimRecords = value;
+    this.rebuildChart();
+  }
 
-    let tempData = this.data; 
-    if (this.column1 != '' && this.column2 != ''){
-      // sort data based on user input
-      tempData = this.sortData(tempData, this.sortType, this.column2);
-      // show top selected results only based on user input 
-      if (this.trimRecords == 0) {
-        this.newLength = this.data.length; 
-      } else {
-        this.newLength = this.trimRecords;
-      } 
-      let datasets = [
-        { data: tempData.slice(0, this.newLength).map( (d: any) => d[this.column2]), 
-          label: ''
-        },
-      ]
-      this.doughnutChartLabels = tempData.slice(0, this.newLength).map( (d: any) => d[this.column1]);;
-      this.doughnutChartDatasets = datasets;
+  rebuildChart() {
+    if (this.column1 != '' && this.column2 != '') {
+      let tempData = this.sortData([...this.data], this.sortType, this.column2);
+      const len = this.trimRecords == 0 ? this.data.length : this.trimRecords;
+      this.newLength = len;
+
+      this.doughnutChartLabels = tempData.slice(0, len).map((d: any) => d[this.column1]);
+      this.doughnutChartDatasets = [
+        { data: tempData.slice(0, len).map((d: any) => d[this.column2]), label: this.chartTitle || '' }
+      ];
     }
-    
+
+    this.doughnutChartOptions = {
+      responsive: false,
+      plugins: {
+        title: { display: !!this.chartTitle, text: this.chartTitle, font: { family: "'DM Sans', sans-serif", size: 14 }, color: '#1A1A1A', padding: { bottom: 12 } },
+        legend: { display: this.showLegend }
+      }
+    };
   }
 
   sortData(data: any, sortType: number, columnName: string){
@@ -65,11 +79,8 @@ export class DoughnutChartComponent {
     } else if (sortType == -1) {
       data.sort( (a: any, b: any) => b[columnName] - a[columnName]);
     } else {
-      data = this.data; 
+      data = [...this.data]; 
     }
     return data; 
   }
-  
-  
-
 }

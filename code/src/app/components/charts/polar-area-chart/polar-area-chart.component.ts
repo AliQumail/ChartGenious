@@ -17,13 +17,20 @@ export class PolarAreaChartComponent {
   chartHeight = GlobalConstants.CHART_HEIGHT;
   chartWidth = GlobalConstants.CHART_WIDTH;
 
+  // Modal state
+  modalOpen = false;
+
+  // Config
+  chartTitle = '';
+  showLegendFlag = true;
+
   column1: string = "";
   column2: string = ""; 
 
-  sortType: number = 0; // No sort is 0, ascending is 1, descending in -1 
+  sortType: number = 0;
   trimRecords = 0; 
   newLength = 0;
-  // PolarArea
+
   public polarAreaChartLabels: string[] = [ 'Download Sales', 'In-Store Sales', 'Mail Sales', 'Telesales', 'Corporate Sales' ];
   public polarAreaChartDatasets: ChartConfiguration<'polarArea'>['data']['datasets'] = [
     { data: [ 300, 500, 100, 40, 120 ] }
@@ -34,27 +41,38 @@ export class PolarAreaChartComponent {
     responsive: false,
   };
 
-  // Column 1 denotes X axis & Column 2 y axis 
+  openModal() { this.modalOpen = true; }
+  closeModal() { this.modalOpen = false; }
+
   onChangeSelectColumn(event: any, dropdownNo: number){
     let value = event.target.value; 
     if (dropdownNo == 0) this.column1 = value;
     else if (dropdownNo == 1) this.column2 = value;
     else if (dropdownNo == 2) this.sortType = value;
     else if (dropdownNo == 3) this.trimRecords = value;
+    this.rebuildChart();
+  }
 
-    let tempData = this.data;
-    if (this.column1 != '' && this.column2 != ''){
-      tempData = this.sortData(tempData, this.sortType, this.column2);
-      if (this.trimRecords == 0) {
-        this.newLength = this.data.length; 
-      } else {
-        this.newLength = this.trimRecords;
-      }
-      this. polarAreaChartLabels = tempData.slice(0, this.newLength).map( (d: any) => d[this.column1]);
+  rebuildChart() {
+    if (this.column1 != '' && this.column2 != '') {
+      let tempData = this.sortData([...this.data], this.sortType, this.column2);
+      const len = this.trimRecords == 0 ? this.data.length : this.trimRecords;
+      this.newLength = len;
+
+      this.polarAreaChartLabels = tempData.slice(0, len).map((d: any) => d[this.column1]);
       this.polarAreaChartDatasets = [
-        { data: tempData.slice(0, this.newLength).map( (d: any) => d[this.column2]) }
+        { data: tempData.slice(0, len).map((d: any) => d[this.column2]) }
       ];
     }
+
+    this.polarAreaOptions = {
+      responsive: false,
+      plugins: {
+        title: { display: !!this.chartTitle, text: this.chartTitle, font: { family: "'DM Sans', sans-serif", size: 14 }, color: '#1A1A1A', padding: { bottom: 12 } },
+        legend: { display: this.showLegendFlag }
+      }
+    };
+    this.polarAreaLegend = this.showLegendFlag;
   }
 
   sortData(data: any, sortType: number, columnName: string){
@@ -63,7 +81,7 @@ export class PolarAreaChartComponent {
     } else if (sortType == -1) {
       data.sort( (a: any, b: any) => b[columnName] - a[columnName]);
     } else {
-      data = this.data; 
+      data = [...this.data]; 
     }
     return data; 
   }

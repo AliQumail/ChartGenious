@@ -1,0 +1,37 @@
+.chart-card {
+  position: relative;
+  display: inline-block;
+  padding: 1.2rem;
+}
+
+.icon-buttons {
+  padding: 0.3rem;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+
+.chart-card:hover {
+  background: #f3f3f3; ;
+  border: 1px solid #f3f3f3; 
+}
+
+.chart-card:hover .icon-buttons {
+  opacity: 1;
+  visibility: visible;
+}
+
+.icon-btn {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5%;
+  cursor: pointer;
+  margin: 0.1rem;
+}
+
+.icon-btn:hover {
+  background: #f3f3f3;   
+  border-color: #bbb;
+}

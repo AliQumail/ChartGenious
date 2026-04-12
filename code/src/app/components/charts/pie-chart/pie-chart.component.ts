@@ -17,7 +17,13 @@ export class PieChartComponent {
   chartHeight = GlobalConstants.CHART_HEIGHT;
   chartWidth = GlobalConstants.CHART_WIDTH;
 
-  
+  // Modal state
+  modalOpen = false;
+
+  // Config
+  chartTitle = '';
+  showLegend = true;
+
   // Pie
   public pieChartOptions: ChartOptions<'pie'> = {
     responsive: false,
@@ -34,33 +40,42 @@ export class PieChartComponent {
 
   column1: string = '';
   column2: string = '';
-  sortType: number = 0; // No sort is 0, ascending is 1, descending in -1 
+  sortType: number = 0;
   trimRecords = 0; 
   newLength = 0; 
 
-  onChangeLineGraphSelectedColumns(event: any, dropdownNo: number)
-  {
+  openModal() { this.modalOpen = true; }
+  closeModal() { this.modalOpen = false; }
+
+  onChangeLineGraphSelectedColumns(event: any, dropdownNo: number) {
     let value = event.target.value; 
     if (dropdownNo == 0) this.column1 = value;
     else if (dropdownNo == 1) this.column2 = value;
     else if (dropdownNo == 2) this.sortType = value;
     else if (dropdownNo == 3) this.trimRecords = value;
-    
-    let tempData = this.data; 
-    if (this.column1 != '' && this.column2 != ''){
-      tempData = this.sortData(tempData, this.sortType, this.column2);
-      if (this.trimRecords == 0) {
-        this.newLength = this.data.length; 
-      } else {
-        this.newLength = this.trimRecords;
-      }
-        
-      let datasets = [
-        { data: tempData.slice(0, this.newLength).map( (d: any) => d[this.column2]) },
-      ]
-      this.pieChartLabels = tempData.slice(0, this.newLength).map( (d: any) => d[this.column1])
-      this.pieChartDatasets = datasets;
+    this.rebuildChart();
+  }
+
+  rebuildChart() {
+    if (this.column1 != '' && this.column2 != '') {
+      let tempData = this.sortData([...this.data], this.sortType, this.column2);
+      const len = this.trimRecords == 0 ? this.data.length : this.trimRecords;
+      this.newLength = len;
+
+      this.pieChartLabels = tempData.slice(0, len).map((d: any) => d[this.column1]);
+      this.pieChartDatasets = [
+        { data: tempData.slice(0, len).map((d: any) => d[this.column2]) }
+      ];
     }
+
+    this.pieChartOptions = {
+      responsive: false,
+      plugins: {
+        title: { display: !!this.chartTitle, text: this.chartTitle, font: { family: "'DM Sans', sans-serif", size: 14 }, color: '#1A1A1A', padding: { bottom: 12 } },
+        legend: { display: this.showLegend }
+      }
+    };
+    this.pieChartLegend = this.showLegend;
   }
 
   sortData(data: any, sortType: number, columnName: string){
@@ -69,7 +84,7 @@ export class PieChartComponent {
     } else if (sortType == -1) {
       data.sort( (a: any, b: any) => b[columnName] - a[columnName]);
     } else {
-      data = this.data; 
+      data = [...this.data]; 
     }
     return data; 
   }

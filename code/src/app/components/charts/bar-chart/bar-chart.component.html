@@ -1,31 +1,38 @@
-<div *ngIf="hideDropdown == false">
-<select (change)="onChangeSelectColumn($event, 0)" [(ngModel)]="column1" class="chart-select">
-        <option [value]="''" selected> Select labels </option>
-        <option *ngFor="let col of columns" [value]="col">{{ col }}</option>
-</select>
-      
-<select (change)="onChangeSelectColumn($event, 1)" [(ngModel)]="column2" class="chart-select">
-        <option [value]="''" selected> Select Column 1 </option>
-        <option *ngFor="let col of columns" [value]="col">{{ col }}</option>
-</select>
-<select (change)="onChangeSelectColumn($event, 2)" [(ngModel)]="sortType" class="chart-select">
-        <option [value]="0">No sort</option>
-        <option [value]="1">Ascending</option>
-        <option [value]="-1">Descending</option>
-      </select>
-      <select (change)="onChangeSelectColumn($event, 3)" [(ngModel)]="trimRecords" class="chart-select">
-        <option [value]="0">Select All</option>
-        <option [value]="3">Show top 3</option>
-        <option [value]="5">Show top 5</option>
-        <option [value]="10">Show top 10</option>
-      </select>
-</div>
-      
+<!-- Bar chart extra style controls -->
+<ng-template #barExtraControls>
+  <div class="ctrl-field ctrl-field-row">
+    <span class="ctrl-field-label">Bar Color</span>
+    <input type="color" [(ngModel)]="barColor" (ngModelChange)="rebuildChart()" class="ctrl-color">
+  </div>
+</ng-template>
 
-<canvas baseChart [width]="chartSize" [height]="chartSize"
-        [data]="barChartData"
-        [options]="barChartOptions"
-        [plugins]="barChartPlugins"
-        [legend]="barChartLegend"
-        [type]="'bar'">
-</canvas>
+<!-- Thumbnail -->
+<div class="chart-thumb" [class.clickable]="!hideDropdown" (click)="!hideDropdown && openModal()">
+  <canvas baseChart [width]="chartSize" [height]="chartSize"
+    [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
+    [legend]="barChartLegend" [type]="'bar'"></canvas>
+  <div *ngIf="!hideDropdown" class="thumb-hint">Click to configure</div>
+</div>
+
+<!-- Modal -->
+<app-chart-config-modal *ngIf="modalOpen"
+  heading="Configure Bar Chart"
+  [columns]="columns"
+  [(column1)]="column1"
+  [(column2)]="column2"
+  [(sortType)]="sortType"
+  [(trimRecords)]="trimRecords"
+  [(chartTitle)]="chartTitle"
+  [hasAxisLabels]="true"
+  [(xAxisLabel)]="xAxisLabel"
+  [(yAxisLabel)]="yAxisLabel"
+  [hasLegend]="true"
+  [(showLegend)]="showLegend"
+  [extraControlsTemplate]="barExtraControls"
+  (closed)="closeModal()"
+  (configChanged)="rebuildChart()"
+>
+  <canvas preview baseChart width="520" height="380"
+    [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
+    [legend]="barChartLegend" [type]="'bar'"></canvas>
+</app-chart-config-modal>

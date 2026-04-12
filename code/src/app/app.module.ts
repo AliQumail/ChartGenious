@@ -12,6 +12,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { FormsModule } from '@angular/forms';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { LineChartComponent } from './components/charts/line-chart/line-chart.component';
@@ -31,6 +32,8 @@ import { UserGuideComponent } from './components/user-guide/user-guide.component
 import { HeaderComponent } from './components/shared/header/header.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { CollaboratorsComponent } from './components/collaborators/collaborators.component';
+import { ChartGeneratorComponent } from './components/charts/chart-generator/chart-generator.component';
+import { ChartConfigModalComponent } from './components/charts/chart-config-modal/chart-config-modal.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +50,8 @@ import { CollaboratorsComponent } from './components/collaborators/collaborators
     HeaderComponent,
     FooterComponent,
     CollaboratorsComponent,
+    ChartGeneratorComponent,
+    ChartConfigModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,6 +70,7 @@ import { CollaboratorsComponent } from './components/collaborators/collaborators
     NzDescriptionsModule,
     NzSpaceModule,
     NzLayoutModule,
+    NzModalModule
   ],
 
   providers: [],

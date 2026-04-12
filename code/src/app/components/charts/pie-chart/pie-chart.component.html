@@ -1,39 +1,27 @@
-<div *ngIf="hideDropdown == false">
-  <select (change)="onChangeLineGraphSelectedColumns($event, 0)" class="chart-select">
-    <option [value]="">Select X-Axis</option>
-    <option *ngFor="let col of columns" [value]="col">
-      {{ col }}
-    </option>
-  </select>
-  <select (change)="onChangeLineGraphSelectedColumns($event, 1)" class="chart-select">
-    <option [value]="">Select X-Axis</option>
-    <option *ngFor="let col of columns" [value]="col">
-      {{ col }}
-    </option>
-  </select>
-  <select (change)="onChangeLineGraphSelectedColumns($event, 2)" [(ngModel)]="sortType" class="chart-select">
-    <option [value]="0">No Sort</option>
-    <option [value]="1">Ascending</option>
-    <option [value]="-1">Descending</option>
-  </select>
-  <select (change)="onChangeLineGraphSelectedColumns($event, 3)" [(ngModel)]="trimRecords" class="chart-select">
-    <option [value]="0">Select All</option>
-    <option [value]="3">Show top 3</option>
-    <option [value]="5">Show top 5</option>
-    <option [value]="10">Show top 10</option>
-  </select>
-
+<!-- Thumbnail -->
+<div class="chart-thumb" [class.clickable]="!hideDropdown" (click)="!hideDropdown && openModal()">
+  <canvas baseChart [width]="chartSize" [height]="chartSize"
+    [type]="'pie'" [datasets]="pieChartDatasets" [labels]="pieChartLabels"
+    [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend"></canvas>
+  <div *ngIf="!hideDropdown" class="thumb-hint">Click to configure</div>
 </div>
-  <canvas
-    baseChart
-    [width]="chartSize"
-    [height]="chartSize"
-    [type]="'pie'"
-    [datasets]="pieChartDatasets"
-    [labels]="pieChartLabels"
-    [options]="pieChartOptions"
-    [plugins]="pieChartPlugins"
-    [legend]="pieChartLegend"
-  >
-  </canvas>
 
+<!-- Modal -->
+<app-chart-config-modal *ngIf="modalOpen"
+  heading="Configure Pie Chart"
+  [columns]="columns"
+  [(column1)]="column1"
+  [(column2)]="column2"
+  [(sortType)]="sortType"
+  [(trimRecords)]="trimRecords"
+  [(chartTitle)]="chartTitle"
+  [hasAxisLabels]="false"
+  [hasLegend]="true"
+  [(showLegend)]="showLegend"
+  (closed)="closeModal()"
+  (configChanged)="rebuildChart()"
+>
+  <canvas preview baseChart width="420" height="380"
+    [type]="'pie'" [datasets]="pieChartDatasets" [labels]="pieChartLabels"
+    [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend"></canvas>
+</app-chart-config-modal>
