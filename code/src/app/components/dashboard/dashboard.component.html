@@ -3,12 +3,16 @@
   <!-- ===== SIDEBAR ===== -->
   <nz-sider [nzTheme]="'light'" class="sidebar"
     [nzCollapsible]="true"
+    [nzTrigger]="null"
     [(nzCollapsed)]="sidebarCollapsed"
     [nzWidth]="200"
     [nzCollapsedWidth]="64">
+    <button type="button" class="sidebar-toggle" (click)="sidebarCollapsed = !sidebarCollapsed" title="Collapse sidebar">
+      <fa-icon [icon]="sidebarCollapsed ? faAngleRight : faAngleLeft"></fa-icon>
+    </button>
     <ul nz-menu nzMode="inline" [nzInlineCollapsed]="sidebarCollapsed" class="sidebar-menu">
 
-      <li nz-submenu nzTitle="Data" nzIcon="table" nzOpen>
+      <li nz-submenu nzTitle="Raw Data" nzIcon="table" nzOpen>
         <ul>
           <li nz-menu-item (click)="onClickViewRawData()">View raw data</li>
         </ul>
@@ -39,6 +43,10 @@
           <li nz-menu-item (click)="onClickChart('scatter')" class="menu-item">
             Scatter chart
             <nz-badge [nzCount]="this.selectChartCount.scatter"><a></a></nz-badge>
+          </li>
+          <li nz-menu-item (click)="onClickChart('stat')" class="menu-item">
+            Stat card
+            <nz-badge [nzCount]="this.selectChartCount.stat"><a></a></nz-badge>
           </li>
         </ul>
       </li>
@@ -112,22 +120,25 @@
                 </button>
 
                 <div *ngIf="chart == 'line'">
-                  <app-line-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-line-chart>
+                  <app-line-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data" [chartSize]="chartSize" [chartHeight]="chartHeight"></app-line-chart>
                 </div>
                 <div *ngIf="chart == 'pie'">
-                  <app-pie-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-pie-chart>
+                  <app-pie-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data" [chartSize]="chartSize" [chartHeight]="chartHeight"></app-pie-chart>
                 </div>
                 <div *ngIf="chart == 'bar'">
-                  <app-bar-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-bar-chart>
+                  <app-bar-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data" [chartSize]="chartSize" [chartHeight]="chartHeight"></app-bar-chart>
                 </div>
                 <div *ngIf="chart == 'doughnut'">
-                  <app-doughnut-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-doughnut-chart>
+                  <app-doughnut-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data" [chartSize]="chartSize" [chartHeight]="chartHeight"></app-doughnut-chart>
                 </div>
                 <div *ngIf="chart == 'polar'">
-                  <app-polar-area-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-polar-area-chart>
+                  <app-polar-area-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data" [chartSize]="chartSize" [chartHeight]="chartHeight"></app-polar-area-chart>
                 </div>
                 <div *ngIf="chart == 'scatter'">
-                  <app-scatter-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-scatter-chart>
+                  <app-scatter-chart [hideDropdown]="hideDropdown" [columns]="columns" [data]="data" [chartSize]="chartSize" [chartHeight]="chartHeight"></app-scatter-chart>
+                </div>
+                <div *ngIf="chart == 'stat'">
+                  <app-stat-card [hideDropdown]="hideDropdown" [columns]="columns" [data]="data"></app-stat-card>
                 </div>
               </div>
             </div>

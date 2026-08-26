@@ -10,11 +10,15 @@ import { GlobalConstants } from "../../../global-constants"
 export class BarChartComponent {
   title = 'ng2-charts-demo';
   @Input() chartSize: string = "325";
+  @Input() chartHeight: string = "";
   @Input() columns: string[] = [];
   @Input() data: any[] = [];
   @Input() hideDropdown: boolean = false;
 
-  chartHeight = GlobalConstants.CHART_HEIGHT;
+  get resolvedChartHeight(): string {
+    return this.chartHeight || this.chartSize;
+  }
+
   chartWidth = GlobalConstants.CHART_WIDTH;
 
   // Modal state
@@ -44,7 +48,8 @@ export class BarChartComponent {
   };
 
   public barChartOptions: ChartConfiguration<'bar'>['options'] = {
-    responsive: false,
+    responsive: true,
+    maintainAspectRatio: false,
   };
 
   openModal() { this.modalOpen = true; }
@@ -76,7 +81,8 @@ export class BarChartComponent {
     }
 
     this.barChartOptions = {
-      responsive: false,
+      responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         title: { display: !!this.chartTitle, text: this.chartTitle, font: { family: "'DM Sans', sans-serif", size: 14 }, color: '#1A1A1A', padding: { bottom: 12 } },
         legend: { display: this.showLegend }

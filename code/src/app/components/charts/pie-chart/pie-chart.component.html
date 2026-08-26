@@ -1,8 +1,10 @@
 <!-- Thumbnail -->
-<div class="chart-thumb" [class.clickable]="!hideDropdown" (click)="!hideDropdown && openModal()">
-  <canvas baseChart [width]="chartSize" [height]="chartSize"
-    [type]="'pie'" [datasets]="pieChartDatasets" [labels]="pieChartLabels"
-    [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend"></canvas>
+<div class="chart-thumb chart-thumb--responsive-square" [class.clickable]="!hideDropdown" (click)="!hideDropdown && openModal()" [style.height.px]="resolvedChartHeight">
+  <div class="chart-thumb-square" [style.max-width.px]="resolvedChartHeight">
+    <canvas baseChart
+      [type]="'pie'" [datasets]="pieChartDatasets" [labels]="pieChartLabels"
+      [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend"></canvas>
+  </div>
   <div *ngIf="!hideDropdown" class="thumb-hint">Click to configure</div>
 </div>
 

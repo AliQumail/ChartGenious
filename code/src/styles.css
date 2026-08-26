@@ -149,9 +149,42 @@ body {
 ========================================================== */
 
 /* Thumbnail wrapper */
-.chart-thumb { position: relative; }
+.chart-thumb {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.chart-thumb canvas { max-width: 100%; height: auto; }
 .chart-thumb.clickable { cursor: pointer; }
 .chart-thumb.clickable:hover .thumb-hint { opacity: 1; }
+
+/* Responsive (Chart.js-managed) thumbnails: canvas fills its sized wrapper */
+.chart-thumb.chart-thumb--responsive {
+  width: 100%;
+  display: block;
+}
+.chart-thumb.chart-thumb--responsive canvas {
+  max-width: none;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Responsive square thumbnails (pie/doughnut/polar): grow to fill available
+   height while staying circular, centered horizontally in a wide card. */
+.chart-thumb.chart-thumb--responsive-square {
+  width: 100%;
+  align-items: center;
+}
+.chart-thumb-square {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+}
+.chart-thumb-square canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
 
 .thumb-hint {
   position: absolute;
@@ -355,3 +388,45 @@ body {
 }
 .ctrl-toggle input:checked + .toggle-track { background: var(--color-accent); }
 .ctrl-toggle input:checked + .toggle-track .toggle-thumb { transform: translateX(16px); }
+
+/* ==========================================================
+   PRINT REPORT
+   Only the chart grid (#sectionToPrint) is printed: sidebar,
+   header, footer, toolbar, and per-card chrome are hidden.
+========================================================== */
+@media print {
+  app-header,
+  app-footer,
+  nz-sider,
+  .toolbar,
+  .sidebar-toggle,
+  .raw-data-wrapper,
+  .delete-btn,
+  .thumb-hint {
+    display: none !important;
+  }
+
+  .right-layout,
+  .right-layout--collapsed {
+    margin-left: 0 !important;
+  }
+
+  .inner-content {
+    padding: 0 !important;
+  }
+
+  #sectionToPrint {
+    max-width: 960px;
+    margin: 0 auto !important;
+  }
+
+  .chart-col {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .chart-card {
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+  }
+}

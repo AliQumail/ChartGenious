@@ -1,0 +1,94 @@
+<!-- Thumbnail -->
+<div class="stat-thumb" [class.clickable]="!hideDropdown" (click)="!hideDropdown && openModal()">
+  <div class="stat-label">{{ label || 'Untitled Stat' }}</div>
+  <div class="stat-value">{{ displayValue }}</div>
+  <div class="stat-submetric" *ngIf="displaySubMetric">
+    <span class="stat-submetric-dot"></span>
+    <span>{{ displaySubMetric }}<ng-container *ngIf="subMetricLabel"> {{ subMetricLabel }}</ng-container></span>
+  </div>
+  <div *ngIf="!hideDropdown" class="thumb-hint">Click to configure</div>
+</div>
+
+<!-- Modal -->
+<div class="modal-backdrop" *ngIf="modalOpen" (click)="closeModal()"></div>
+<div class="modal-panel stat-modal-panel" *ngIf="modalOpen">
+  <div class="modal-header">
+    <span class="modal-heading">Configure Stat Card</span>
+    <button class="modal-close" (click)="closeModal()">&times;</button>
+  </div>
+  <div class="modal-body stat-modal-body">
+    <div class="ctrl-section">
+      <label class="ctrl-label">Value</label>
+      <div class="ctrl-field">
+        <span class="ctrl-field-label">Column</span>
+        <select [ngModel]="valueColumn" (ngModelChange)="onValueColumnChange($event)" class="ctrl-select">
+          <option [value]="''">Select column</option>
+          <option *ngFor="let col of columns" [value]="col">{{ col }}</option>
+        </select>
+      </div>
+      <div class="ctrl-field">
+        <span class="ctrl-field-label">Aggregation</span>
+        <select [(ngModel)]="aggregation" (ngModelChange)="rebuild()" class="ctrl-select">
+          <option value="sum">Sum</option>
+          <option value="avg">Average</option>
+          <option value="count">Count</option>
+          <option value="min">Min</option>
+          <option value="max">Max</option>
+        </select>
+      </div>
+      <div class="ctrl-field ctrl-field-row">
+        <span class="ctrl-field-label">Prefix</span>
+        <input type="text" [(ngModel)]="prefix" (blur)="rebuild()" class="ctrl-input" placeholder="e.g. $">
+      </div>
+      <div class="ctrl-field ctrl-field-row">
+        <span class="ctrl-field-label">Suffix</span>
+        <input type="text" [(ngModel)]="suffix" (blur)="rebuild()" class="ctrl-input" placeholder="e.g. %">
+      </div>
+    </div>
+
+    <div class="ctrl-section">
+      <label class="ctrl-label">Labels</label>
+      <div class="ctrl-field">
+        <span class="ctrl-field-label">Card Label</span>
+        <input type="text" [(ngModel)]="label" (blur)="rebuild()" class="ctrl-input" placeholder="Untitled Stat">
+      </div>
+    </div>
+
+    <div class="ctrl-section">
+      <div class="ctrl-field ctrl-field-row">
+        <span class="ctrl-field-label">Show Sub-metric</span>
+        <label class="ctrl-toggle">
+          <input type="checkbox" [(ngModel)]="subMetricEnabled" (ngModelChange)="rebuild()">
+          <span class="toggle-track"><span class="toggle-thumb"></span></span>
+        </label>
+      </div>
+      <ng-container *ngIf="subMetricEnabled">
+        <div class="ctrl-field">
+          <span class="ctrl-field-label">Column</span>
+          <select [ngModel]="subMetricColumn" (ngModelChange)="onSubMetricColumnChange($event)" class="ctrl-select">
+            <option [value]="''">Select column</option>
+            <option *ngFor="let col of columns" [value]="col">{{ col }}</option>
+          </select>
+        </div>
+        <div class="ctrl-field">
+          <span class="ctrl-field-label">Aggregation</span>
+          <select [(ngModel)]="subMetricAggregation" (ngModelChange)="rebuild()" class="ctrl-select">
+            <option value="sum">Sum</option>
+            <option value="avg">Average</option>
+            <option value="count">Count</option>
+            <option value="min">Min</option>
+            <option value="max">Max</option>
+          </select>
+        </div>
+        <div class="ctrl-field ctrl-field-row">
+          <span class="ctrl-field-label">Suffix</span>
+          <input type="text" [(ngModel)]="subMetricSuffix" (blur)="rebuild()" class="ctrl-input" placeholder="e.g. %">
+        </div>
+        <div class="ctrl-field ctrl-field-row">
+          <span class="ctrl-field-label">Label</span>
+          <input type="text" [(ngModel)]="subMetricLabel" (blur)="rebuild()" class="ctrl-input" placeholder="e.g. ROI">
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

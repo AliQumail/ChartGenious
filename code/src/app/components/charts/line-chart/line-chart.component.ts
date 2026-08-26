@@ -10,9 +10,13 @@ export class LineChartComponent {
   @Input() columns: string[] = [];
   @Input() data: any = [];
   @Input() chartSize: string = "325";
+  @Input() chartHeight: string = "";
   @Input() hideDropdown: boolean = false;
 
-  chartHeight = GlobalConstants.CHART_HEIGHT;
+  get resolvedChartHeight(): string {
+    return this.chartHeight || this.chartSize;
+  }
+
   chartWidth = GlobalConstants.CHART_WIDTH;
 
   // Modal state
@@ -54,7 +58,8 @@ export class LineChartComponent {
      ]
    };
    public lineChartOptions: ChartOptions<'line'> = {
-     responsive: false
+     responsive: true,
+     maintainAspectRatio: false
    };
    public lineChartLegend = true;
 
@@ -98,7 +103,8 @@ export class LineChartComponent {
     }
 
     this.lineChartOptions = {
-      responsive: false,
+      responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         title: {
           display: !!this.chartTitle,

@@ -51,18 +51,41 @@ export class ChartConfigModalComponent {
   @Output() closed = new EventEmitter<void>();
   @Output() configChanged = new EventEmitter<void>();
 
+  // Tracks whether the user has manually edited a label, so column
+  // selection only autofills labels that are still at their default.
+  private chartTitleTouched = !!this.chartTitle;
+  private xAxisLabelTouched = !!this.xAxisLabel;
+  private yAxisLabelTouched = !!this.yAxisLabel;
+
   // --- Handlers ---
 
   onColumn1Change(val: string) {
     this.column1 = val;
     this.column1Change.emit(val);
+    if (!this.xAxisLabelTouched) {
+      this.xAxisLabel = val;
+      this.xAxisLabelChange.emit(val);
+    }
+    this.applyDefaultChartTitle();
     this.configChanged.emit();
   }
 
   onColumn2Change(val: string) {
     this.column2 = val;
     this.column2Change.emit(val);
+    if (!this.yAxisLabelTouched) {
+      this.yAxisLabel = val;
+      this.yAxisLabelChange.emit(val);
+    }
+    this.applyDefaultChartTitle();
     this.configChanged.emit();
+  }
+
+  private applyDefaultChartTitle() {
+    if (this.chartTitleTouched) return;
+    const title = [this.column2, this.column1].filter(c => !!c).join(' / ');
+    this.chartTitle = title;
+    this.chartTitleChange.emit(title);
   }
 
   onSortTypeChange(val: number) {

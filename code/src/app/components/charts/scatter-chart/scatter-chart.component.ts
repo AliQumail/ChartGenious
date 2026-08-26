@@ -8,12 +8,16 @@ import { GlobalConstants } from 'src/app/global-constants';
 })
 export class ScatterChartComponent {
   title = 'ng2-charts-demo';
-  chartHeight = GlobalConstants.CHART_HEIGHT;
   chartWidth = GlobalConstants.CHART_WIDTH;
   @Input() chartSize: string = "325";
+  @Input() chartHeight: string = "";
   @Input() data: any[] = [];
   @Input() columns: string[] = [];
   @Input() hideDropdown: boolean = false;
+
+  get resolvedChartHeight(): string {
+    return this.chartHeight || this.chartSize;
+  }
 
   // Modal state
   modalOpen = false;
@@ -44,7 +48,8 @@ export class ScatterChartComponent {
   ];
 
   public scatterChartOptions: ChartConfiguration<'scatter'>['options'] = {
-    responsive: false,
+    responsive: true,
+    maintainAspectRatio: false,
   };
 
   sortType: number = 0;
@@ -83,7 +88,8 @@ export class ScatterChartComponent {
     }
 
     this.scatterChartOptions = {
-      responsive: false,
+      responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         title: { display: !!this.chartTitle, text: this.chartTitle, font: { family: "'DM Sans', sans-serif", size: 14 }, color: '#1A1A1A', padding: { bottom: 12 } },
       },

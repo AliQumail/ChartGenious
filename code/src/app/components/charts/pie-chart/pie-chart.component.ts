@@ -11,10 +11,14 @@ export class PieChartComponent {
   @Input() columns: string[] = [];
   @Input() data: any[] = [];
   @Input() chartSize: string = "325";
+  @Input() chartHeight: string = "";
   @Input() hideDropdown: boolean = false;
   title = 'ng2-charts-demo';
 
-  chartHeight = GlobalConstants.CHART_HEIGHT;
+  get resolvedChartHeight(): string {
+    return this.chartHeight || this.chartSize;
+  }
+
   chartWidth = GlobalConstants.CHART_WIDTH;
 
   // Modal state
@@ -26,7 +30,8 @@ export class PieChartComponent {
 
   // Pie
   public pieChartOptions: ChartOptions<'pie'> = {
-    responsive: false,
+    responsive: true,
+    maintainAspectRatio: false,
   };
   public pieChartLabels = [ [ 'Download', 'Sales' ], [ 'In', 'Store', 'Sales' ], 'Mail Sales' ];
   public pieChartDatasets = [ {
@@ -69,7 +74,8 @@ export class PieChartComponent {
     }
 
     this.pieChartOptions = {
-      responsive: false,
+      responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         title: { display: !!this.chartTitle, text: this.chartTitle, font: { family: "'DM Sans', sans-serif", size: 14 }, color: '#1A1A1A', padding: { bottom: 12 } },
         legend: { display: this.showLegend }

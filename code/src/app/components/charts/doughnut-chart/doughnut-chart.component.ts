@@ -9,14 +9,18 @@ import { GlobalConstants } from "../../../global-constants"
 })
 export class DoughnutChartComponent {
   @Input() chartSize: string = "325";
+  @Input() chartHeight: string = "";
   @Input() columns: string[] = [];
   @Input() data: any[] = [];
   @Input() hideDropdown: boolean = false;
 
   title = 'ng2-charts-demo';
 
-  chartHeight = GlobalConstants.CHART_HEIGHT;
   chartWidth = GlobalConstants.CHART_WIDTH;
+
+  get resolvedChartHeight(): string {
+    return this.chartHeight || this.chartSize;
+  }
 
   // Modal state
   modalOpen = false;
@@ -37,7 +41,8 @@ export class DoughnutChartComponent {
     ];
 
   public doughnutChartOptions: ChartConfiguration<'doughnut'>['options'] = {
-    responsive: false
+    responsive: true,
+    maintainAspectRatio: false
   };
 
   openModal() { this.modalOpen = true; }
@@ -65,7 +70,8 @@ export class DoughnutChartComponent {
     }
 
     this.doughnutChartOptions = {
-      responsive: false,
+      responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         title: { display: !!this.chartTitle, text: this.chartTitle, font: { family: "'DM Sans', sans-serif", size: 14 }, color: '#1A1A1A', padding: { bottom: 12 } },
         legend: { display: this.showLegend }

@@ -21,8 +21,8 @@
 </ng-template>
 
 <!-- Thumbnail -->
-<div class="chart-thumb" [class.clickable]="!hideDropdown" (click)="!hideDropdown && openModal()">
-  <canvas baseChart [width]="chartSize" [height]="chartSize"
+<div class="chart-thumb chart-thumb--responsive" [class.clickable]="!hideDropdown" (click)="!hideDropdown && openModal()" [style.height.px]="resolvedChartHeight">
+  <canvas baseChart
     [type]="'line'" [data]="lineChartData" [options]="lineChartOptions"
     [legend]="lineChartLegend"></canvas>
   <div *ngIf="!hideDropdown" class="thumb-hint">Click to configure</div>

@@ -10,12 +10,16 @@ export class PolarAreaChartComponent {
 
   title = 'ng2-charts-demo';
   @Input() chartSize: string = "325";
+  @Input() chartHeight: string = "";
   @Input() data: any[] = [];
   @Input() columns: string[] = [];
   @Input() hideDropdown: boolean = false;
 
-  chartHeight = GlobalConstants.CHART_HEIGHT;
   chartWidth = GlobalConstants.CHART_WIDTH;
+
+  get resolvedChartHeight(): string {
+    return this.chartHeight || this.chartSize;
+  }
 
   // Modal state
   modalOpen = false;
@@ -38,7 +42,8 @@ export class PolarAreaChartComponent {
   public polarAreaLegend = true;
 
   public polarAreaOptions: ChartConfiguration<'polarArea'>['options'] = {
-    responsive: false,
+    responsive: true,
+    maintainAspectRatio: false,
   };
 
   openModal() { this.modalOpen = true; }
@@ -66,7 +71,8 @@ export class PolarAreaChartComponent {
     }
 
     this.polarAreaOptions = {
-      responsive: false,
+      responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         title: { display: !!this.chartTitle, text: this.chartTitle, font: { family: "'DM Sans', sans-serif", size: 14 }, color: '#1A1A1A', padding: { bottom: 12 } },
         legend: { display: this.showLegendFlag }

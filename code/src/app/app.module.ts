@@ -27,6 +27,8 @@ import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { TableOutline, BarChartOutline } from '@ant-design/icons-angular/icons';
 import { RawDataTableComponent } from './components/raw-data-table/raw-data-table.component';
 import { UserGuideComponent } from './components/user-guide/user-guide.component';
 import { HeaderComponent } from './components/shared/header/header.component';
@@ -34,6 +36,7 @@ import { FooterComponent } from './components/shared/footer/footer.component';
 import { CollaboratorsComponent } from './components/collaborators/collaborators.component';
 import { ChartGeneratorComponent } from './components/charts/chart-generator/chart-generator.component';
 import { ChartConfigModalComponent } from './components/charts/chart-config-modal/chart-config-modal.component';
+import { StatCardComponent } from './components/charts/stat-card/stat-card.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,6 +55,7 @@ import { ChartConfigModalComponent } from './components/charts/chart-config-moda
     CollaboratorsComponent,
     ChartGeneratorComponent,
     ChartConfigModalComponent,
+    StatCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,7 +74,8 @@ import { ChartConfigModalComponent } from './components/charts/chart-config-moda
     NzDescriptionsModule,
     NzSpaceModule,
     NzLayoutModule,
-    NzModalModule
+    NzModalModule,
+    NzIconModule.forRoot([TableOutline, BarChartOutline])
   ],
 
   providers: [],

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ChartConfiguration, ChartOptions, ChartType } from "chart.js";
 import { ChangeDetectorRef } from '@angular/core';
-import { faXmark, faPrint, fa2, fa3, faTrash, faDownload, faUpload } from '@fortawesome/free-solid-svg-icons';
+import { faXmark, faPrint, fa2, fa3, faTrash, faDownload, faUpload, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import {faEye} from "@fortawesome/free-regular-svg-icons";
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -17,7 +17,8 @@ export class DashboardComponent implements OnInit {
   data: any[] = [];
   section : number = 1;
   chartSize = "325";
-  hideDropdown: boolean = false; 
+  chartHeight = "325";
+  hideDropdown: boolean = false;
   sidebarCollapsed = false;
 
   faXmark = faXmark;
@@ -28,6 +29,8 @@ export class DashboardComponent implements OnInit {
   faTrash = faTrash;
   faDownload = faDownload;
   faUpload = faUpload;
+  faAngleLeft = faAngleLeft;
+  faAngleRight = faAngleRight;
 
   showRawData: boolean = true;
 
@@ -37,7 +40,8 @@ export class DashboardComponent implements OnInit {
     scatter: 0,
     bar: 0,
     doughnut: 0,
-    polar: 0
+    polar: 0,
+    stat: 0
   }
 
   // Line graph
@@ -123,19 +127,23 @@ export class DashboardComponent implements OnInit {
     if (typeOfGraph == 'doughnut') this.selectChartCount.doughnut +=1;
     if (typeOfGraph == 'bar') this.selectChartCount.bar +=1;
     if (typeOfGraph == 'scatter') this.selectChartCount.scatter +=1;
+    if (typeOfGraph == 'stat') this.selectChartCount.stat +=1;
   }
   chartTypeRef: string | null = null;
   viewType : string = "8";
   onClickChangeView(view: number){
     if (view == 1) {
       this.viewType = "24"
-      //this.chartSize = "700"
+      this.chartSize = "1100"
+      this.chartHeight = "480"
     } else  if (view == 2){
       this.viewType = "12"
-      //this.chartSize = "500"
+      this.chartSize = "650"
+      this.chartHeight = "400"
     } else {
       this.viewType = "8"
-      //this.chartSize = "325"
+      this.chartSize = "325"
+      this.chartHeight = "325"
     }
     this.chartTypeRef = null; // Reset the chart type
   this.cdr.detectChanges(); // Manually trigger change detection
@@ -177,16 +185,27 @@ export class DashboardComponent implements OnInit {
   }
 
   handleDelete(idx: number){
-    let typeOfGraph = this.displayCharts[idx];
-    
-    if (typeOfGraph == 'line') this.selectChartCount.line -=1;
-    if (typeOfGraph == 'pie') this.selectChartCount.pie -=1;
-    if (typeOfGraph == 'polar') this.selectChartCount.polar -=1;
-    if (typeOfGraph == 'doughnut') this.selectChartCount.doughnut -=1;
-    if (typeOfGraph == 'bar') this.selectChartCount.bar -=1;
-    if (typeOfGraph == 'scatter') this.selectChartCount.scatter -=1;
-    
-    this.displayCharts.splice(idx, 1);
+    this.modal.confirm({
+      nzTitle: 'Remove chart?',
+      nzContent: 'This chart will be removed from the workspace. This cannot be undone.',
+      nzOkText: 'Remove',
+      nzOkDanger: true,
+      nzCancelText: 'Cancel',
+      nzOnOk: () => {
+        let typeOfGraph = this.displayCharts[idx];
+
+        if (typeOfGraph == 'line') this.selectChartCount.line -=1;
+        if (typeOfGraph == 'pie') this.selectChartCount.pie -=1;
+        if (typeOfGraph == 'polar') this.selectChartCount.polar -=1;
+        if (typeOfGraph == 'doughnut') this.selectChartCount.doughnut -=1;
+        if (typeOfGraph == 'bar') this.selectChartCount.bar -=1;
+        if (typeOfGraph == 'scatter') this.selectChartCount.scatter -=1;
+        if (typeOfGraph == 'stat') this.selectChartCount.stat -=1;
+
+        this.displayCharts.splice(idx, 1);
+        this.cdr.markForCheck();
+      }
+    });
   }
 
   onPrint() {
@@ -202,7 +221,7 @@ export class DashboardComponent implements OnInit {
       nzCancelText: 'Cancel',
       nzOnOk: () => {
         this.displayCharts = [];
-        this.selectChartCount = { line: 0, pie: 0, scatter: 0, bar: 0, doughnut: 0, polar: 0 };
+        this.selectChartCount = { line: 0, pie: 0, scatter: 0, bar: 0, doughnut: 0, polar: 0, stat: 0 };
         this.showRawData = true;
         this.cdr.markForCheck();
       }
@@ -233,7 +252,7 @@ export class DashboardComponent implements OnInit {
         const payload = JSON.parse(e.target?.result as string);
         if (payload.version === 1 && Array.isArray(payload.charts)) {
           this.displayCharts = [...payload.charts];
-          this.selectChartCount = { line: 0, pie: 0, scatter: 0, bar: 0, doughnut: 0, polar: 0 };
+          this.selectChartCount = { line: 0, pie: 0, scatter: 0, bar: 0, doughnut: 0, polar: 0, stat: 0 };
           payload.charts.forEach((chart: string) => {
             if (chart in this.selectChartCount) (this.selectChartCount as any)[chart]++;
           });

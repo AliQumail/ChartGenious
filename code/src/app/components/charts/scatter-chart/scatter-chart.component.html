@@ -15,8 +15,8 @@
 </ng-template>
 
 <!-- Thumbnail -->
-<div class="chart-thumb" [class.clickable]="!hideDropdown" (click)="!hideDropdown && openModal()">
-  <canvas baseChart [width]="chartSize" [height]="chartSize"
+<div class="chart-thumb chart-thumb--responsive" [class.clickable]="!hideDropdown" (click)="!hideDropdown && openModal()" [style.height.px]="resolvedChartHeight">
+  <canvas baseChart
     [datasets]="scatterChartDatasets" [options]="scatterChartOptions" [type]="'scatter'"></canvas>
   <div *ngIf="!hideDropdown" class="thumb-hint">Click to configure</div>
 </div>

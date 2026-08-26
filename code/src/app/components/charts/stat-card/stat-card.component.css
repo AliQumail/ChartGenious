@@ -1,0 +1,53 @@
+.stat-thumb {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-height: 110px;
+  justify-content: center;
+}
+
+.stat-thumb.clickable { cursor: pointer; }
+.stat-thumb.clickable:hover .thumb-hint { opacity: 1; }
+
+.stat-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.stat-value {
+  font-family: var(--font-body);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.15;
+}
+
+.stat-submetric {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+.stat-submetric-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  flex-shrink: 0;
+}
+
+/* Modal: stat card has no preview pane, so shrink the panel */
+.stat-modal-panel {
+  width: min(420px, 92vw);
+}
+
+.stat-modal-body {
+  display: block;
+  padding: 1.25rem 1.5rem;
+}
